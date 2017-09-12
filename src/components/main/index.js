@@ -53,6 +53,7 @@ import { Home, Page, WhenNotFound } from 'src/components/routes';
 import ReduxCounter from 'src/components/redux';
 import Stats from 'src/components/stats';
 import Styles from 'src/components/styles';
+import BasicAutocomplete from 'src/components/basicAutoComplete';
 
 // Styles
 import css from './main.scss';
@@ -93,6 +94,11 @@ export default () => (
     <hr />
     <ReduxCounter />
     <hr />
+    <p>Autocomplete examples:</p>
+    <BasicAutocomplete
+      items={['apple', 'orange', 'carrot']}
+      onChange={selectedItem => console.log(selectedItem)}
+    />
     <p>Runtime info:</p>
     <Stats />
     <hr />
