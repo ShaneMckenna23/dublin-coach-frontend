@@ -9,13 +9,15 @@ jobs:
     steps:
       - checkout
 
-      - run: yarn install
+      - run: npm install --build-from-source node-zopfli
+
+      - run: npm install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn test
+      - run: npm run test
 
       - run: docker -v
