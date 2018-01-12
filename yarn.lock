@@ -6414,7 +6414,7 @@ node-version@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/node-version/-/node-version-1.1.0.tgz#f437d7ba407e65e2c4eaef8887b1718ba523d4f0"
 
-node-zopfli@^2.0.2, "node-zopfli@github:bruce-one/node-zopfli":
+node-zopfli@^2.0.2:
   version "2.0.2"
   resolved "https://codeload.github.com/bruce-one/node-zopfli/tar.gz/d308961550cc4ca07cadaeaecd02f8c337b42489"
   dependencies:
