@@ -9,8 +9,19 @@ jobs:
     steps:
       - checkout
 
-      - run: npm install
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run test
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn test
 
       - run: docker -v
