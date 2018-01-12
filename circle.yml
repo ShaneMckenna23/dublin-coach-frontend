@@ -15,6 +15,8 @@ jobs:
 
           - v1-dependencies-
 
+      - run: npm install -g node-zopfli
+
       - run: npm install
 
       - save_cache:

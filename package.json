@@ -58,7 +58,6 @@
     "less": "^2.3.1",
     "less-loader": "^4.0.5",
     "node-sass": "^4.7.1",
-    "node-zopfli": "^2.0.2",
     "npm-run-all": "^4.1.2",
     "postcss-cssnext": "3.0.2",
     "postcss-loader": "^2.0.8",
