@@ -55,7 +55,7 @@
     "iltorb": "^2.0.2",
     "image-webpack-loader": "^3.4.2",
     "jest": "^21.2.1",
-    "less": "^3.0.0-alpha.3",
+    "less": "^2.3.1",
     "less-loader": "^4.0.5",
     "node-sass": "^4.7.1",
     "node-zopfli": "^2.0.2",
