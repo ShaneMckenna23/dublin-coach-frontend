@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: lakoo/node-alpine-gcloud
+      - image: lakoo/node-gcloud-docker
 
     working_directory: ~/repo
 
@@ -23,3 +23,5 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
+
+      - run: docker -v
