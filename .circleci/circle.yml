@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: maloubobola/circleci-gcloud-node
 
     working_directory: ~/repo
 
