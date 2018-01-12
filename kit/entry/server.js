@@ -2,11 +2,7 @@
 
 // Server entry point, for Webpack.  This will spawn a Koa web server
 // and listen for HTTP requests.  Clients will get a return render of React
-// or the file they have requested
-//
-// Note:  No HTTP optimisation is performed here (gzip, http/2, etc).  Node.js
-// will nearly always be slower than Nginx or an equivalent, dedicated proxy,
-// so it's usually better to leave that stuff to a faster upstream provider
+// or the file they have requested.
 
 // ----------------------
 // IMPORTS
@@ -15,6 +11,12 @@
 
 // For pre-pending a `<!DOCTYPE html>` stream to the server response
 import { PassThrough } from 'stream';
+
+// HTTP & SSL servers.  We can use `config.enableSSL|disableHTTP()` to enable
+// HTTPS and disable plain HTTP respectively, so we'll use Node's core libs
+// for building both server types.
+import http from 'http';
+import https from 'https';
 
 /* NPM */
 
@@ -25,7 +27,6 @@ import 'isomorphic-fetch';
 import React from 'react';
 
 // React utility to transform JSX to HTML (to send back to the client)
-// import ReactDOMServer from 'react-dom/server';
 import ReactDOMServer from 'react-dom/server';
 
 // Koa 2 web server.  Handles incoming HTTP requests, and will serve back
@@ -37,6 +38,9 @@ import Koa from 'koa';
 // components with GraphQL data props.  We'll also use `getDataFromTree`
 // to await data being ready before rendering back HTML to the client
 import { ApolloProvider, getDataFromTree } from 'react-apollo';
+
+// Enforce SSL, if required
+import koaSSL from 'koa-sslify';
 
 // Enable cross-origin requests
 import koaCors from 'kcors';
@@ -101,15 +105,23 @@ import PATHS from 'config/paths';
 // that binds either the `localInterface` function (if there's a built-in
 // GraphQL) or `externalInterface` (if we're pointing outside of ReactQL)
 const createNeworkInterface = (() => {
-  function localInterface() {
+  // For a local interface, we want to allow passing in the request's
+  // context object, which can then feed through to our GraphQL queries to
+  // extract pertinent information and manipulate the response
+  function localInterface(context) {
     return apolloLocalQuery.createLocalInterface(
       graphql,
       config.graphQLSchema,
+      {
+        // Attach the request's context, which certain GraphQL queries might
+        // need for accessing cookies, auth headers, etc.
+        context,
+      },
     );
   }
 
-  function externalInterface() {
-    return getNetworkInterface(config.graphQLEndpoint);
+  function externalInterface(ctx) {
+    return getNetworkInterface(config.graphQLEndpoint, ctx.apollo.networkOptions);
   }
 
   return config.graphQLServer ? localInterface : externalInterface;
@@ -147,7 +159,7 @@ export function createReactHandler(css = [], scripts = [], chunkManifest = {}) {
     // store it in our empty `route` object
     const components = (
       <StaticRouter location={ctx.request.url} context={routeContext}>
-        <ApolloProvider store={ctx.store} client={ctx.apollo}>
+        <ApolloProvider store={ctx.store} client={ctx.apollo.client}>
           <App />
         </ApolloProvider>
       </StaticRouter>
@@ -195,9 +207,9 @@ export function createReactHandler(css = [], scripts = [], chunkManifest = {}) {
     // Create a stream of the React render. We'll pass in the
     // Helmet component to generate the <head> tag, as well as our Redux
     // store state so that the browser can continue from the server
-    const reactStream = ReactDOMServer.renderToStream(
+    const reactStream = ReactDOMServer.renderToNodeStream(
       <Html
-        head={Helmet.rewind()}
+        helmet={Helmet.renderStatic()}
         window={{
           webpackManifest: chunkManifest,
           __STATE__: ctx.store.getState(),
@@ -229,17 +241,14 @@ const router = (new KoaRouter())
   // Favicon.ico.  By default, we'll serve this as a 204 No Content.
   // If /favicon.ico is available as a static file, it'll try that first
   .get('/favicon.ico', async ctx => {
-    ctx.res.statusCode = 204;
+    ctx.status = 204;
   });
 
 // Build the app instance, which we'll use to define middleware for Koa
 // as a precursor to handling routes
 const app = new Koa()
   // Adds CORS config
-  .use(koaCors())
-
-  // Preliminary security for HTTP headers
-  .use(koaHelmet())
+  .use(koaCors(config.corsOptions))
 
   // Error wrapper.  If an error manages to slip through the middleware
   // chain, it will be caught and logged back here
@@ -256,34 +265,68 @@ const app = new Koa()
         ctx.body = 'There was an error. Please try again later.';
       }
     }
-  })
+  });
 
+if (config.enableTiming) {
   // It's useful to see how long a request takes to respond.  Add the
   // timing to a HTTP Response header
-  .use(async (ctx, next) => {
+  app.use(async (ctx, next) => {
     const start = ms.now();
     await next();
     const end = ms.parse(ms.since(start));
     const total = end.microseconds + (end.milliseconds * 1e3) + (end.seconds * 1e6);
     ctx.set('Response-Time', `${total / 1e3}ms`);
-  })
-
-  // Create a new Apollo client and Redux store per request.  This will be
-  // stored on the `ctx` object, making it available for the React handler or
-  // any subsequent route/middleware
-  .use(async (ctx, next) => {
-    // Create a new server Apollo client for this request
-    ctx.apollo = createClient({
-      ssrMode: true,
-      networkInterface: createNeworkInterface(),
-    });
-
-    // Create a new Redux store for this request
-    ctx.store = createNewStore(ctx.apollo);
-
-    // Pass to the next middleware in the chain: React, custom middleware, etc
-    return next();
   });
+}
+
+// Middleware to set the per-request environment, including the Apollo client.
+// These can be overriden/added to in userland with `config.addBeforeMiddleware()`
+app.use(async (ctx, next) => {
+  ctx.apollo = {};
+  return next();
+});
+
+// Add 'before' middleware that needs to be invoked before the per-request
+// Apollo client and Redux store has instantiated
+config.beforeMiddleware.forEach(middlewareFunc => app.use(middlewareFunc));
+
+// Create a new Apollo client and Redux store per request.  This will be
+// stored on the `ctx` object, making it available for the React handler or
+// any subsequent route/middleware
+app.use(async (ctx, next) => {
+  // Create a new server Apollo client for this request, if we don't already
+  // have one
+  if (!ctx.apollo.client) {
+    ctx.apollo.client = createClient({
+      ssrMode: true,
+      // Create a network request.  If we're running an internal server, this
+      // will be a function that accepts the request's context, to feed through
+      // to the GraphQL schema
+      networkInterface: createNeworkInterface(ctx),
+      ...ctx.apollo.options,
+    });
+  }
+
+  // Create a new Redux store for this request, if we don't have one
+  if (!ctx.store) {
+    ctx.store = createNewStore(ctx.apollo.client);
+  }
+
+  // Pass to the next middleware in the chain: React, custom middleware, etc
+  return next();
+});
+
+/* FORCE SSL */
+
+// Middleware to re-write HTTP requests to SSL, if required.
+if (config.enableForceSSL) {
+  app.use(koaSSL(config.enableForceSSL));
+}
+
+// Middleware to add preliminary security for HTTP headers via Koa Helmet
+if (config.enableKoaHelmet) {
+  app.use(koaHelmet(config.koaHelmetOptions));
+}
 
 // Attach custom middleware
 config.middleware.forEach(middlewareFunc => app.use(middlewareFunc));
@@ -335,7 +378,7 @@ if (config.graphiQL) {
 
 // Attach any custom routes we may have set in userland
 config.routes.forEach(route => {
-  router[route.method](route.route, route.handler);
+  router[route.method](route.route, ...route.handlers);
 });
 
 /* BODY PARSING */
@@ -349,10 +392,40 @@ if (config.enableBodyParser) {
   ));
 }
 
-// Run the server
-export default (async function server() {
-  return {
-    router,
-    app,
-  };
-}());
+/* CUSTOM APP INSTANTIATION */
+
+// Pass the `app` to do anything we need with it in userland. Useful for
+// custom instantiation that doesn't fit into the middleware/route functions
+if (typeof config.koaAppFunc === 'function') {
+  config.koaAppFunc(app);
+}
+
+// Listener function that will start http(s) server(s) based on userland
+// config and available ports
+const listen = () => {
+  // Spawn the listeners.
+  const servers = [];
+
+  // Plain HTTP
+  if (config.enableHTTP) {
+    servers.push(
+      http.createServer(app.callback()).listen(process.env.PORT),
+    );
+  }
+
+  // SSL -- only enable this if we have an `SSL_PORT` set on the environment
+  if (process.env.SSL_PORT) {
+    servers.push(
+      https.createServer(config.sslOptions, app.callback()).listen(process.env.SSL_PORT),
+    );
+  }
+
+  return servers;
+};
+
+// Export everything we need to run the server (in dev or prod)
+export default {
+  router,
+  app,
+  listen,
+};

@@ -10,6 +10,8 @@ class Common {
     // Apollo (middle|after)ware
     this.apolloMiddleware = [];
     this.apolloAfterware = [];
+    this.apolloNetworkOptions = {};
+    this.apolloClientOptions = {};
 
     // GraphQL endpoint.  This needs setting via either `config.enableGraphQLServer()`
     // or `config.setGraphQLEndpoint()`
@@ -58,6 +60,18 @@ class Common {
   addApolloAfterware(afterwareFunc) {
     this.apolloAfterware.push(afterwareFunc);
   }
+
+  // Apollo Client options.  These will be merged in with the `createClient`
+  // default options defined in `kit/lib/apollo.js`
+  setApolloClientOptions(opt = {}) {
+    this.apolloClientOptions = opt;
+  }
+
+  // Apollo Network options.  These will be merged in with the `createNetworkInterface`
+  // default options defined in `kit/lib/apollo.js`
+  setApolloNetworkOptions(opt = {}) {
+    this.apolloNetworkOptions = opt;
+  }
 }
 
 // Placeholder for the class we'll attach
@@ -72,8 +86,29 @@ if (SERVER) {
       // Create a set for routes -- to retrieve based on insertion order
       this.routes = new Set();
 
-      // Custom middleware -- again, based on insertion order
+      // Custom middleware
+      this.beforeMiddleware = new Set();
       this.middleware = new Set();
+
+      // Koa application function. But default, this is null
+      this.koaAppFunc = null;
+
+      // Flag for setting whether plain HTTP should be disabled
+      this.enableHTTP = true;
+
+      // Flag for enabling the `Response-Time` Koa middleware timer
+      this.enableTiming = true;
+
+      // Flag for enabling Koa Helmet HTTP hardening. True, by default.
+      this.enableKoaHelmet = true;
+      this.koaHelmetOptions = null;
+
+      // Force SSL. Rewrites all non-SSL queries to SSL.  False, by default.
+      this.enableForceSSL = false;
+
+      // Options for enabling SSL. By default, this is null. If SSL is enabled
+      // in userland, this would instead hold an object of options
+      this.sslOptions = null;
 
       // GraphQL schema (if we're using an internal server)
       this.graphQLSchema = null;
@@ -83,12 +118,49 @@ if (SERVER) {
       // default to the string value
       this.graphiQL = false;
 
-      // Enable body parsing by default.  Leave `koa-bodyparser` opts as default
+      // Enable body parsing by default.
       this.enableBodyParser = true;
-      this.bodyParserOptions = {};
+      this.bodyParserOptions = null;
+
+      // CORS options for `koa-cors`
+      this.corsOptions = {};
     }
 
     /* WEB SERVER / SSR */
+
+    // Get access to Koa's `app` instance, for adding custom instantiation
+    // or doing something that's not covered by other functions
+    getKoaApp(func) {
+      this.koaAppFunc = func;
+    }
+
+    // Enable SSL. Normally, you'd use an upstream proxy like Nginx to handle
+    // SSL. But if you want to run a 'bare' Koa HTTPS web server, you can pass
+    // in the certificate details here and it'll respond to SSL requests
+    enableSSL(opt) {
+      // At a minimum, we should have `key` and `cert` -- check for those
+      if (typeof opt !== 'object' || !opt.key || !opt.cert) {
+        throw new Error('Cannot enable SSL. Missing `key` and/or `cert`');
+      }
+      this.sslOptions = opt;
+    }
+
+    // Force SSL. Rewrites all non-SSL queries to SSL. Any options here are
+    // passed to `koa-sslify`, the SSL enforcement middleware
+    forceSSL(opt = {}) {
+      this.enableForceSSL = opt;
+    }
+
+    // Disable plain HTTP.  Note this should only be used if you've also set
+    // `enableSSL()` and you don't want dual-HTTP+SSL config
+    disableHTTP() {
+      this.enableHTTP = false;
+    }
+
+    // Disable timing the request. This will remove the `Response-Time` header
+    disableTiming() {
+      this.enableTiming = false;
+    }
 
     // Disable the optional `koa-bodyparser`, to prevent POST data being sent to
     // each request.  By default, body parsing is enabled.
@@ -98,6 +170,15 @@ if (SERVER) {
 
     setBodyParserOptions(opt = {}) {
       this.bodyParserOptions = opt;
+    }
+
+    // Disable Koa Helmet option, to prevent HTTP hardening by default
+    disableKoaHelmet() {
+      this.enableKoaHelmet = false;
+    }
+
+    setKoaHelmetOptions(opt = {}) {
+      this.koaHelmetOptions = opt;
     }
 
     // 404 handler for the server.  By default, `kit/entry/server.js` will
@@ -120,49 +201,59 @@ if (SERVER) {
       this.errorHandler = func;
     }
 
-    // Add custom middleware.  This should be an async func, for use with Koa
+    // Add custom middleware.  This should be an async func, for use with Koa.
+    // There are two entry points - 'before' and 'after'
+    addBeforeMiddleware(middlewareFunc) {
+      this.beforeMiddleware.add(middlewareFunc);
+    }
+
     addMiddleware(middlewareFunc) {
       this.middleware.add(middlewareFunc);
     }
 
     // Adds a custom server route to attach to our Koa router
-    addRoute(method, route, handler) {
+    addRoute(method, route, ...handlers) {
       this.routes.add({
         method,
         route,
-        handler,
+        handlers,
       });
     }
 
     // Adds custom GET route
-    addGetRoute(route, handler) {
-      this.addRoute('get', route, handler);
+    addGetRoute(route, ...handlers) {
+      this.addRoute('get', route, ...handlers);
     }
 
     // Adds custom POST route
-    addPostRoute(route, handler) {
-      this.addRoute('post', route, handler);
+    addPostRoute(route, ...handlers) {
+      this.addRoute('post', route, ...handlers);
     }
 
     // Adds custom PUT route
-    addPutRoute(route, handler) {
-      this.addRoute('put', route, handler);
+    addPutRoute(route, ...handlers) {
+      this.addRoute('put', route, ...handlers);
     }
 
     // Adds custom PATCH route
-    addPatchRoute(route, handler) {
-      this.addRoute('patch', route, handler);
+    addPatchRoute(route, ...handlers) {
+      this.addRoute('patch', route, ...handlers);
     }
 
     // Adds custom DELETE route
-    addDeleteRoute(route, handler) {
-      this.addRoute('delete', route, handler);
+    addDeleteRoute(route, ...handlers) {
+      this.addRoute('delete', route, ...handlers);
     }
 
     // Set the GraphQL schema. This should only be called on the server, otherwise
     // the bundle size passed by the `schema` object will be unnecessarily inflated
     setGraphQLSchema(schema) {
       this.graphQLSchema = schema;
+    }
+
+    // CORS options, for `koa-cors` instantiation
+    setCORSOptions(opt = {}) {
+      this.corsOptions = opt;
     }
   };
 } else {

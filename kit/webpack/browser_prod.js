@@ -93,10 +93,20 @@ export default new WebpackConfig().extend({
       `${chalk.magenta.bold('ReactQL browser bundle')} in ${chalk.bgMagenta.white.bold('production mode')}`,
     ),
 
-    // Set NODE_ENV to 'production', so that React will minify our bundle
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production',
-      DEBUG: false,
+    // Global variables
+    new webpack.DefinePlugin({
+      // We're not running on the server
+      SERVER: false,
+      'process.env': {
+        // Point the server host/port to the production server
+        HOST: JSON.stringify(process.env.HOST || 'localhost'),
+        PORT: JSON.stringify(process.env.PORT || '4000'),
+        SSL_PORT: process.env.SSL_PORT ? JSON.stringify(process.env.SSL_PORT) : null,
+
+        // Optimise React, etc
+        NODE_ENV: JSON.stringify('production'),
+        DEBUG: false,
+      },
     }),
 
     // Check for errors, and refuse to emit anything with issues
@@ -158,7 +168,7 @@ export default new WebpackConfig().extend({
       // Put this in `dist` rather than `dist/public`
       fileName: '../manifest.json',
       // Prefix assets with '/' so that they can be referenced from any route
-      publicPath: '/',
+      publicPath: '',
       inlineManifest: true,
     }),
 

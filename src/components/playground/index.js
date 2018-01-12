@@ -48,7 +48,7 @@ import { Redirect } from 'kit/lib/routing';
 // Child React components. Note:  We can either export one main React component
 // per file, or in the case of <Home>, <Page> and <WhenFound>, we can group
 // multiple components per file where it makes sense to do so
-import GraphQLMessage from 'src/components/graphql';
+import GraphQLStops from 'src/components/stopsql';
 import { Home, Page, WhenNotFound } from 'src/components/routes';
 import ReduxCounter from 'src/components/redux';
 import Stats from 'src/components/stats';
@@ -76,7 +76,7 @@ export default ({match}) => (
       <img src={logo} alt="ReactQL" className={css.logo} />
     </div>
     <hr />
-    <GraphQLMessage />
+    <GraphQLStops />
     <hr />
     <h2>Router Url: {match.url}</h2>
     <hr/>
