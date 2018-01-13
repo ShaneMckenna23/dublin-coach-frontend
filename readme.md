@@ -1,4 +1,4 @@
-# Dublin Coach Fontend
+# Dublin Coach Frontend
 
 [![CircleCI](https://circleci.com/gh/ShaneMckenna23/dublin-coach-frontend.svg?style=shield)](https://circleci.com/gh/ShaneMckenna23/dublin-coach-frontend)
 [![Code Climate](https://codeclimate.com/github/ShaneMckenna23/dublin-coach-frontend.svg)](https://codeclimate.com/github/ShaneMckenna23/dublin-coach-frontend)
