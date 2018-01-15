@@ -35,7 +35,7 @@ jobs:
 
       - run: docker -v
 
-      - run: docker build ./
+      - run: sudo docker build ./
 
 workflows:
   version: 2
