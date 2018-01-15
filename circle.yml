@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
 
-      - run: uname -or
+      - run: yum update
 
       - run:
           name: get-packages
