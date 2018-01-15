@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
 
-      - run: npm install --build-from-source node-zopfli
+      - run: npm install bruce-one/node-zopfli
 
       - run: npm install
 
