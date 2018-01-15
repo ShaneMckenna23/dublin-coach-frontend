@@ -58,6 +58,10 @@ jobs:
             docker build -t eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG .
 
       - run:
+          name: Authenticate with Google Cloud
+          command: gcloud auth activate-service-account circle-ci@dublin-coach.iam.gserviceaccount.com --key-file=./config/gcloud.json
+
+      - run:
           name: Push image to Container Registry
           command: gcloud docker -- push eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG
 
