@@ -26,14 +26,16 @@ jobs:
 
   deploy:
     docker:
-      - image: parafuzo/pfz-docker-gcloud
+      - image: bicollect/docker-gcloud
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
-      - run: service docker stop
+      - run: docker -v
+
+      - run: docker build ./
 
 workflows:
   version: 2
