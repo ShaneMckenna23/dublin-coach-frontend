@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: bigtruedata/gcloud-node
+      - image: emissaryio/gcloud-tools
     working_directory: ~/repo
     steps:
       - checkout
