@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: paulwoelfel/docker-gcloud
+      - image: montmanu/gcloud-node
     working_directory: ~/repo
     steps:
       - checkout
@@ -56,6 +56,10 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             docker build -t eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG .
+
+      - run:
+          name: Generate gcloud auth file
+          run: npm run gcloud-auth
 
       - run:
           name: Authenticate with Google Cloud
