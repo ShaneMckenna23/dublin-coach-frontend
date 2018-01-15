@@ -26,13 +26,12 @@ jobs:
 
   deploy:
     docker:
-      - image: lakoo/node-gcloud-docker
+      - image: paulwoelfel/docker-gcloud
 
     working_directory: ~/repo
 
     steps:
       - checkout
-      - run: dir
 
       - run: docker build ./
 
