@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: montmanu/gcloud-node
+      - image: bigtruedata/gcloud-node
     working_directory: ~/repo
     steps:
       - checkout
