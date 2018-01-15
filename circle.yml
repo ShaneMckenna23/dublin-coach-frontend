@@ -11,7 +11,7 @@ jobs:
 
       - run:
           name: get-packages
-          command: apt-get install build-essential
+          command: yum install build-essential
 
       - run: yarn install
 
