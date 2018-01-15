@@ -59,7 +59,7 @@ jobs:
 
       - run:
           name: Generate gcloud auth file
-          run: npm run gcloud-auth
+          command: npm run gcloud-auth
 
       - run:
           name: Authenticate with Google Cloud
