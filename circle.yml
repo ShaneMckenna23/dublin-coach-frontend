@@ -9,9 +9,11 @@ jobs:
     steps:
       - checkout
 
+      - run: uname -or
+
       - run:
           name: get-packages
-          command: yum install build-essential
+          command: apt-get install build-essential
 
       - run: yarn install
 
