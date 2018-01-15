@@ -27,9 +27,13 @@ jobs:
   deploy:
     docker:
       - image: lakoo/node-gcloud-docker
+
+    working_directory: ~/repo
+
     steps:
       - checkout
-      - run: docker -v
+
+      - run: docker build ./ dublin-coach-frontend:1.0
 
 workflows:
   version: 2
