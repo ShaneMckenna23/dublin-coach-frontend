@@ -9,7 +9,9 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo apt-get install build-essential
+      - run:
+          name: get-packages
+          command: sudo apt-get install build-essential
 
       - run: yarn install
 
