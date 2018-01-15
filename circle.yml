@@ -33,9 +33,7 @@ jobs:
     steps:
       - checkout
 
-      - run: docker -v
-
-      - run: sudo docker build ./
+      - run: service docker stop
 
 workflows:
   version: 2
