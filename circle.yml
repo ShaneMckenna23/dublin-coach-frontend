@@ -33,7 +33,7 @@ jobs:
     steps:
       - checkout
 
-      - run: docker build ./ dublin-coach-frontend:1.0
+      - run: docker build ./
 
 workflows:
   version: 2
