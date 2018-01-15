@@ -1,6 +1,7 @@
 version: 2
 jobs:
-  build:
+  build-test:
+    build:
     docker:
       - image: circleci/node:7.10
 
@@ -23,3 +24,17 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
+
+  deploy:
+    docker:
+      - image: docker pull lakoo/node-gcloud-docker
+    steps:
+      - checkout
+      - run: docker -v
+
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build-test
+      - deploy
