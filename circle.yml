@@ -32,6 +32,7 @@ jobs:
 
     steps:
       - checkout
+      - run: dir
 
       - run: docker build ./
 
