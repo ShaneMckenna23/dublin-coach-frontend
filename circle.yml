@@ -9,15 +9,13 @@ jobs:
     steps:
       - checkout
 
-      - run: npm install bruce-one/node-zopfli
-
-      - run: npm install
+      - run: yarn install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run test
+      - run: yarn test
 
       - run: docker -v
