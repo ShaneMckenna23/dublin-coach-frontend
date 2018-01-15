@@ -11,7 +11,7 @@ jobs:
 
       - run:
           name: get-packages
-          command: sudo apt-get install build-essential
+          command: apt-get install build-essential
 
       - run: yarn install
 
