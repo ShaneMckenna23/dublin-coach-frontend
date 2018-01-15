@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: bigtruedata/gcloud-node
+      - image: lakoo/node-gcloud-docker
     working_directory: ~/repo
     steps:
       - checkout
