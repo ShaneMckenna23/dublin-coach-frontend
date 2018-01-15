@@ -15,10 +15,6 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run:
-          name: get-packages
-          command: apt-get install build-essential
-
       - run: yarn install
 
       - save_cache:
@@ -26,4 +22,4 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-
+      - run: yarn test
