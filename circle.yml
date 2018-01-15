@@ -27,7 +27,7 @@ jobs:
 
   deploy:
     docker:
-      - image: docker pull lakoo/node-gcloud-docker
+      - image: lakoo/node-gcloud-docker
     steps:
       - checkout
       - run: docker -v
@@ -38,3 +38,5 @@ workflows:
     jobs:
       - build-test
       - deploy
+        requires:
+          - build-test
