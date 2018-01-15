@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: lakoo/node-gcloud-docker
+      - image: bigtruedata/gcloud-node
     working_directory: ~/repo
     steps:
       - checkout
@@ -60,6 +60,10 @@ jobs:
       - run:
           name: Generate gcloud auth file
           command: npm run gcloud-auth
+
+      - run:
+          name: Check file
+          command: cat ./config/gcloud.json
 
       - run:
           name: Authenticate with Google Cloud
