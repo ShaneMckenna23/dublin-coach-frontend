@@ -26,7 +26,7 @@ jobs:
 
   deploy:
     docker:
-      - image: paulwoelfel/docker-gcloud
+      - image: parafuzo/pfz-docker-gcloud
     working_directory: ~/repo
     steps:
       - checkout
@@ -37,6 +37,8 @@ jobs:
 
       # use a primary image that already has Docker (recommended)
       # or install it during a build like we do here
+      - run: gcloud -v
+
       - run:
           name: Install Docker client
           command: |
@@ -52,6 +54,9 @@ jobs:
           docker build -t shanemckenna23/dublin-coach-frontend:$TAG .      # (4)
           docker login -u $DOCKER_USER -p $DOCKER_PASS         # (5)
           docker push shanemckenna23/dublin-coach-frontend:$TAG
+
+
+          eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG
 
 workflows:
   version: 2
