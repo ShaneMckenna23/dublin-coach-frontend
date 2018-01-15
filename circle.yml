@@ -26,12 +26,14 @@ jobs:
 
   deploy:
     docker:
-      - image: paulwoelfel/docker-gcloud
+      - image: parafuzo/pfz-docker-gcloud
 
     working_directory: ~/repo
 
     steps:
       - checkout
+
+      - run: docker -v
 
       - run: docker build ./
 
