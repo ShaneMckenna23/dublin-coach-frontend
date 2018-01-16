@@ -59,20 +59,12 @@ jobs:
             docker build -t eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG .
 
       - run:
-          name: Check file
-          command: cat config/gcloud.json
-
-      - run:
           name: Install slashes
           command: npm install slashes
 
       - run:
           name: Generate gcloud auth file
           command: npm run gcloud-auth
-
-      - run:
-          name: Check file after generate
-          command: cat config/gcloud.json
 
       - run:
           name: Authenticate with Google Cloud
