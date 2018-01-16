@@ -63,6 +63,10 @@ jobs:
           command: cat config/gcloud.json
 
       - run:
+          name: Install slashes
+          command: npm install slashes
+
+      - run:
           name: Generate gcloud auth file
           command: npm run gcloud-auth
 
