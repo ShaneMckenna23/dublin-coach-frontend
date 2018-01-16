@@ -111,7 +111,8 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "regenerator-runtime": "^0.11.0",
-    "seamless-immutable": "^7.1.2"
+    "seamless-immutable": "^7.1.2",
+    "slashes": "^1.0.5"
   },
   "engines": {
     "node": ">=7",

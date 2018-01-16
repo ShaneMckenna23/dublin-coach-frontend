@@ -1,6 +1,7 @@
 const fs = require('fs');
+const slashes = require('slashes');
 
-const gcloud = {
+let gcloud = {
   type: 'service_account',
   project_id: 'dublin-coach',
   private_key_id: process.env.private_key_id,
@@ -12,6 +13,8 @@ const gcloud = {
   auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
   client_x509_cert_url: 'https://www.googleapis.com/robot/v1/metadata/x509/circle-ci%40dublin-coach.iam.gserviceaccount.com',
 };
+
+gcloud.private_key = slashes.strip(gcloud.private_key)
 
 const data = JSON.stringify(gcloud, null, 2);
 fs.writeFileSync('config/gcloud.json', data);
