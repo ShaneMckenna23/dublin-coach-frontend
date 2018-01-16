@@ -13,5 +13,5 @@ const gcloud = {
   client_x509_cert_url: 'https://www.googleapis.com/robot/v1/metadata/x509/circle-ci%40dublin-coach.iam.gserviceaccount.com',
 };
 
-const data = JSON.stringify(gcloud, null, "\t");
+const data = JSON.stringify(gcloud, null, 2);
 fs.writeFileSync('config/gcloud.json', data);
