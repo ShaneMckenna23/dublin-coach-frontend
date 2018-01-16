@@ -31,6 +31,7 @@ jobs:
   deploy:
     docker:
       - image: lakoo/node-alpine-gcloud
+
     working_directory: ~/repo
     steps:
       - checkout
@@ -38,14 +39,6 @@ jobs:
 
       - setup_remote_docker:   # (2)
           docker_layer_caching: true # (3)
-
-      - run:
-          name: Generate gcloud auth file
-          command: npm run gcloud-auth
-
-      - run:
-          name: Check File
-          command: cat config/gcloud.json
 
       # use a primary image that already has Docker (recommended)
       # or install it during a build like we do here
@@ -66,8 +59,12 @@ jobs:
             docker build -t eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG .
 
       - run:
+          name: Generate gcloud auth file
+          command: npm run gcloud-auth
+
+      - run:
           name: Authenticate with Google Cloud
-          command: gcloud auth activate-service-account circle-ci@dublin-coach.iam.gserviceaccount.com --key-file=./config/gcloud.json
+          command: gcloud auth activate-service-account circle-ci@dublin-coach.iam.gserviceaccount.com --key-file=config/gcloud.json
 
       - run:
           name: Push image to Container Registry
