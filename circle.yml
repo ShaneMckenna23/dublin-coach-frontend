@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: montmanu/gcloud-node
+      - image: lakoo/node-alpine-gcloud
     working_directory: ~/repo
     steps:
       - checkout
