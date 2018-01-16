@@ -14,4 +14,4 @@ const gcloud = {
 };
 
 const data = JSON.stringify(gcloud);
-fs.writeFileSync('config/gcloud.json', data);
+//fs.writeFileSync('config/gcloud.json', data);
