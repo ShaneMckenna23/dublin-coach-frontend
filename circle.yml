@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: shanemckenna23/gcloud-node
+      - image: shanemckenna23/gcloud-node:0.1.3
 
     working_directory: ~/repo
     steps:
