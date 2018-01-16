@@ -30,7 +30,7 @@ jobs:
 
   deploy:
     docker:
-      - image: lakoo/node-alpine-gcloud
+      - image: shanemckenna23/gcloud-node
 
     working_directory: ~/repo
     steps:
