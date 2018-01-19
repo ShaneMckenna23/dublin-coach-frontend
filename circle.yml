@@ -56,7 +56,7 @@ jobs:
           name: Build Docker Image
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
-            docker build -t eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG .
+            docker build -t eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG .
 
       - run:
           name: Install slashes
@@ -68,13 +68,13 @@ jobs:
 
       - run:
           name: Authenticate with Google Cloud
-          command: gcloud auth activate-service-account circle-ci@dublin-coach.iam.gserviceaccount.com --key-file=config/gcloud.json
+          command: gcloud auth activate-service-account circleci@dublin-coach-123.iam.gserviceaccount.com --key-file=config/gcloud.json
 
       - run:
           name: Push image to Container Registry
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
-            gcloud docker -- push eu.gcr.io/dublin-coach/dublin-coach-frontend:$TAG
+            gcloud docker -- push eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG
 
 
 workflows:
@@ -85,3 +85,5 @@ workflows:
       - deploy:
           requires:
             - build-test
+
+
