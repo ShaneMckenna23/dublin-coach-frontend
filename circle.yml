@@ -77,6 +77,12 @@ jobs:
             gcloud docker -- push eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG
 
       - run:
+          name: Gcloud project config
+          command: |
+            gcloud config set project dublin-coach-123
+            gcloud config set compute/zone europe-west2-b
+
+      - run:
           name: Get cluster credentials
           command: gcloud container clusters get-credentials dublin-coach-cluster
 
