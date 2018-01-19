@@ -77,6 +77,10 @@ jobs:
             gcloud docker -- push eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG
 
       - run:
+          name: Get cluster credentials
+          command: gcloud container clusters get-credentials dublin-coach-cluster
+
+      - run:
           name: Deploy new image
           command: kubectl set image deployment/dublin-coach-frontend dublin-coach-frontend=eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG
 
