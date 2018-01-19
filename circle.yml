@@ -73,7 +73,7 @@ jobs:
       - run:
           name: Push image to Container Registry
           command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
+            TAG=0.$CIRCLE_BUILD_NUM
             gcloud docker -- push eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG
 
       - run:
