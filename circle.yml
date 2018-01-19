@@ -88,7 +88,9 @@ jobs:
 
       - run:
           name: Deploy new image
-          command: kubectl set image deployment/dublin-coach-frontend dublin-coach-frontend=eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG
+          command: |
+            TAG=0.$CIRCLE_BUILD_NUM
+            kubectl set image deployment/dublin-coach-frontend dublin-coach-frontend=eu.gcr.io/dublin-coach-123/dublin-coach-frontend:$TAG
 
 
 workflows:
