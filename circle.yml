@@ -80,7 +80,7 @@ jobs:
           name: Gcloud project config
           command: |
             gcloud config set project dublin-coach-123
-            gcloud config set compute/zone europe-west2-b
+            gcloud config set compute/zone europe-west1-b
 
       - run:
           name: Get cluster credentials
