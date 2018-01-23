@@ -50,8 +50,18 @@ config.addReducer('counter', counterReducer, { count: 0 });
 //
 // 2.  On the client, it will append the correct server URL so that we can
 // call the ReactQL host properly, and let the server handle our requests
-config.setGraphQLEndpoint('http://localhost:3000/graphql');
+let endpoint;
 
+
+if (process.env.NODE_ENV === 'production') {
+  endpoint = 'http://35.205.252.128/graphql';
+} else {
+  endpoint = 'http://localhost:3000/graphql';
+}
+
+config.setGraphQLEndpoint(endpoint);
+
+console.log('Can I?', process.env.NODE_ENV);
 /* SERVER */
 
 // Set our server config, by checking `SERVER` -- this code path will be
