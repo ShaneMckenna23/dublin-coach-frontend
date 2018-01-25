@@ -5,7 +5,7 @@ class HomePage extends Component {
   render() {
     return (
       <div>
-        <h1>Dublin Coach Test</h1>
+        <h1>Dave Coach</h1>
         <BasicAutoComplete
           placeholder="From"
           items={['apple', 'orange', 'carrot']}
