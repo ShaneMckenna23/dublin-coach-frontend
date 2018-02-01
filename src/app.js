@@ -61,7 +61,6 @@ if (process.env.NODE_ENV === 'production') {
 
 config.setGraphQLEndpoint(endpoint);
 
-console.log('Can I?', process.env.NODE_ENV);
 /* SERVER */
 
 // Set our server config, by checking `SERVER` -- this code path will be
