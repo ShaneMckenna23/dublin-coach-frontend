@@ -14,7 +14,7 @@ import {
   Segment,
   Sidebar,
   Visibility,
-} from 'semantic-ui-react'
+} from 'semantic-ui-react';
 import Helmet from 'react-helmet';
 
 /* eslint-disable react/no-multi-comp */
