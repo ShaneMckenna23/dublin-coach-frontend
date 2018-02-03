@@ -83,6 +83,7 @@
     "apollo-local-query": "^0.3.1",
     "apollo-server-koa": "^1.2.0",
     "boxen": "^1.2.2",
+    "caniuse-lite": "^1.0.30000792",
     "chalk": "^2.3.0",
     "downshift": "^1.22.5",
     "fs": "^0.0.1-security",
