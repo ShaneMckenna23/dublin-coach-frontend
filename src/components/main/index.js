@@ -10,7 +10,7 @@ import { Redirect } from 'kit/lib/routing';
 import { WhenNotFound } from 'src/components/routes';
 
 import Playground from 'src/components/playground';
-import Homepage from 'src/components/homepage';
+import Homepage from '../Homepage';
 
 
 export default () => (
