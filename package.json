@@ -112,6 +112,7 @@
     "redux-thunk": "^2.2.0",
     "regenerator-runtime": "^0.11.0",
     "seamless-immutable": "^7.1.2",
+    "semantic-ui-react": "^0.77.2",
     "slashes": "^1.0.5"
   },
   "engines": {

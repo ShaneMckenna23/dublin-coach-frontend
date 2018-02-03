@@ -10,12 +10,12 @@ import { Redirect } from 'kit/lib/routing';
 import { WhenNotFound } from 'src/components/routes';
 
 import Playground from 'src/components/playground';
-import HomePage from 'src/components/homePage';
+import Homepage from 'src/components/homepage';
 
 
 export default () => (
   <div>
-    <Route exact path="/" component={HomePage} />
+    <Route exact path="/" component={Homepage} />
     <Route path="/playground" component={Playground} />
   </div>
 );
