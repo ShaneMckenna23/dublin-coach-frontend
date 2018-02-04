@@ -15,7 +15,7 @@ import {
   Sidebar,
   Visibility,
 } from 'semantic-ui-react';
-import Helmet from 'react-helmet';
+
 
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
@@ -166,10 +166,6 @@ ResponsiveContainer.propTypes = {
 }
 
 const Homepage = () => (
-  <div>
-    <Helmet>
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
-    </Helmet>
   <ResponsiveContainer>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign='middle'>
@@ -280,7 +276,6 @@ const Homepage = () => (
       </Container>
     </Segment>
   </ResponsiveContainer>
-  </div>
 )
 
 export default Homepage
