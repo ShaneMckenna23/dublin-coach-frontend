@@ -2,23 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
-  Route,
-  Link,
-  Prompt
+  Route
 } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
-import Helmet from 'react-helmet';
+import Layout from './components/Layout'
 
 import Homepage from './components/Homepage'
+import NewsPage from './components/NewsPage'
+import ContactPage from './components/ContactPage'
+
 
 const App = () => (
   <Router>
-    <div>
-      <Helmet>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
-      </Helmet>
+    <Layout>
       <Route path="/" exact component={Homepage}/>
-    </div>
+      <Route path="/news" exact component={NewsPage}/>
+      <Route path="/contact" exact component={ContactPage}/>
+    </Layout>
   </Router>
 )
 
