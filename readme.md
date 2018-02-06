@@ -10,4 +10,4 @@
 - Testing with [Jest](https://facebook.github.io/jest/).
 - Airbnb linting [ESLint](http://eslint.org/).
 - ES2017+ support with [Babel](https://babeljs.io/).
-- Automatic polyfill requires based on environment with [babel-preset-env](https://github.com/babel/babel-preset-env).
+- Docker support
