@@ -7,7 +7,9 @@ import HomepageHeading from '../HomepageHeading'
 class Homepage extends Component {
   render () {
     return (
-            <HomepageHeading />
+      <div>
+        <HomepageHeading />
+      </div>
     )
   }
 }
