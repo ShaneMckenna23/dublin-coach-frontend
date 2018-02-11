@@ -1,13 +1,13 @@
 import React from 'react'
 import NavbarMobile from '../NavbarMobile'
-import {Segment} from 'semantic-ui-react'
+import {Container} from 'semantic-ui-react'
 
 const MobileContainer = ({ children }) => (
   <div>
     <NavbarMobile />
-    <Segment style={{ padding: '5em 0em' }} vertical>
+    <Container style={{ padding: '5em 0em' }} vertical>
       {children}
-    </Segment>
+    </Container>
   </div>
 )
 

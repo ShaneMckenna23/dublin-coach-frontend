@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Grid} from 'semantic-ui-react'
+import NewsItemContainer from '../NewsItemContainer'
 
 class NewsPage extends Component {
   render () {
@@ -7,7 +8,7 @@ class NewsPage extends Component {
       <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
             <div>
-            NewsPage
+              <NewsItemContainer />
             </div>
           </Grid.Row>
         </Grid>
