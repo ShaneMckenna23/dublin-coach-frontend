@@ -8,6 +8,7 @@ class NewsPage extends Component {
       <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
             <div>
+              <h1>Latest Updates & Upcoming Events</h1>
               <NewsItemContainer />
             </div>
           </Grid.Row>
