@@ -11,7 +11,7 @@ class Homepage extends Component {
     return (
       <div>
         <HomepageHeading />
-        <LoginLearn />
+
       </div>
     )
   }

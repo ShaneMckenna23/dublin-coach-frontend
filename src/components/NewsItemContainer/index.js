@@ -5,7 +5,7 @@ import { Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 import NewsItem from '../NewsItem'
 
-const NewsItemContainer = ({ data: { news, loading} }) => {
+const NewsItemContainer = ({ data: { getArticles, loading} }) => {
   if(loading){
     return(
       <Segment>
@@ -18,7 +18,7 @@ const NewsItemContainer = ({ data: { news, loading} }) => {
   else{
     return (
       <div>
-        {news.map(({headline, publishDate, photo, photoDesc, extract}) => (
+        {getArticles.map(({headline, publishDate, photo, photoDesc, extract}) => (
               <NewsItem
                 headline={headline}
                 publishDate={publishDate}
@@ -32,8 +32,8 @@ const NewsItemContainer = ({ data: { news, loading} }) => {
 }
 
 export default graphql(gql`
-  query NewsQuery {
-    news {
+  query ArticleQuery {
+    getArticles {
       headline
       extract
       publishDate

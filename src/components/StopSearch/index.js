@@ -37,7 +37,7 @@ function ApolloAutocomplete() {
 }
 
 function ApolloAutocompleteMenu({
-  data: {stops, loading},
+  data: {searchStops, loading},
   selectedItem,
   highlightedIndex,
   getItemProps,
@@ -47,7 +47,7 @@ function ApolloAutocompleteMenu({
   }
   return (
     <div>
-      {stops.map(({name: item}, index) =>
+      {searchStops.map(({name: item}, index) =>
         <div
           {...getItemProps({
             item,
@@ -66,8 +66,8 @@ function ApolloAutocompleteMenu({
 }
 
 const ApolloAutocompleteMenuWithData = graphql(gql`
-  query StopsQuery {
-    stops {
+  query StopsQuery($inputValue: String!) {
+    searchStops(filter: $inputValue){
       name
     }
   }
