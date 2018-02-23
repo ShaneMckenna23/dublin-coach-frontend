@@ -2,6 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/ShaneMckenna23/dublin-coach-frontend.svg?style=shield)](https://circleci.com/gh/ShaneMckenna23/dublin-coach-frontend)
 [![Code Climate](https://codeclimate.com/github/ShaneMckenna23/dublin-coach-frontend.svg)](https://codeclimate.com/github/ShaneMckenna23/dublin-coach-frontend)
+[![style: styled-components](https://img.shields.io/badge/style-%F0%9F%92%85%20styled--components-orange.svg?colorB=daa357&colorA=db748e)](https://github.com/styled-components/styled-components)
 
 ### Features:
 - Built on create-react-app
