@@ -1,6 +1,7 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import registerServiceWorker from './registerServiceWorker';
 
 import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
