@@ -2,6 +2,7 @@ import React from 'react'
 import Downshift from 'downshift'
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import {Input} from 'semantic-ui-react'
 
 function ApolloAutocomplete() {
   return (
@@ -18,7 +19,7 @@ function ApolloAutocomplete() {
         <div>
           <label {...getLabelProps()}>Enter a stop</label>
           <br />
-          <input {...getInputProps()} />
+          <Input {...getInputProps()} />
           {isOpen
             ? <div>
                 <ApolloAutocompleteMenuWithData

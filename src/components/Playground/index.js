@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
-import StopSearch from '../StopSearch'
+import RoutePlanner from '../RoutePlanner'
 
 class Playground extends Component {
   render () {
     return (
       <div>
-        <h1>GraphQL StopSearch</h1>
-        <StopSearch />
-        <hr/>
+        <RoutePlanner/>
       </div>
     )
   }
