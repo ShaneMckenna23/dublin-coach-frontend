@@ -1,24 +1,31 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 
-class MenuLogo extends Component {
+class LogoMenu extends Component {
+
+  constructor(){
+    super()
+    this.state = {
+      isMenuOpen: false
+    }
+  }
+
+  onClick = ()=> {
+    this.setState((prevState)=> {
+      return{
+        isMenuOpen : !prevState.isMenuOpen
+      }
+    })
+  }
+
   render () {
-    const isMobile = this.props.isMobile
-
-    if (isMobile){
-      return(
-        <div>
+    return(
+      <div>
+        <div onClick={this.onClick}>
           <img src='/logo.png' alt="Logo Menu" style={{width:" 50px", height:"32px", marginTop:".5em", marginLeft:".5em"}} />
         </div>
-      )
-    }else {
-      return (
-        <Link to="/" style={{paddingRight: ".5em"}}>
-          <img src='/logo.png' alt="Logo Menu" style={{width:" 50px", height:"32px", marginTop:".5em"}} />
-        </Link>
-      )
-    }
+      </div>
+    )
   }
 }
 
-export default MenuLogo
+export default LogoMenu

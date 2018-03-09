@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react'
+import React, { Component} from 'react'
 import DesktopContainer from '../DesktopContainer'
 import MobileContainer from '../MobileContainer'
 import {Switch, Route} from "react-router"
@@ -75,14 +75,14 @@ class Layout extends Component {
   }
 
   render() {
-    const isMobile = this.isMobile() 
+    const isMobile = this.isMobile()
 
     const routes = <Switch>
       <Route path="/" exact component={Homepage}/>
       <Route path="/news" component={NewsPage}/>
       <Route path="/contact" component={ContactPage}/>
-      <Route path="/pstyledlayground" component={Playground}/>
-      <Route path="/" component={Styled} />
+      <Route path="/playground" component={Playground}/>
+      <Route path="/style" component={Styled} />
     </Switch>
 
     if (isMobile) {

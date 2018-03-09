@@ -40,15 +40,15 @@ function serverRenderer(req, res){
       }),
       cache: new InMemoryCache(),
     });
-  
+
     const context = {};
-  
+
     const md = new MobileDetect(req.headers['user-agent'])
-    
+
     const isMobile = !!md.mobile()
 
     const sheet = new ServerStyleSheet()
-    
+
     let modules = [];
     const App = (
       <Loadable.Capture report={m => modules.push(m)}>
@@ -61,12 +61,11 @@ function serverRenderer(req, res){
         </StyleSheetManager>
       </Loadable.Capture>
     );
-    
+
     renderToStringWithData(App).then((content) => {
-      
       const extraChunks = extractAssets(manifest, modules)
       .map(c => `<script type="text/javascript" src="/${c}"></script>`);
-      
+
       const styleTags = sheet.getStyleTags()
 
       // point to the html file created by CRA's build tool
@@ -82,7 +81,7 @@ function serverRenderer(req, res){
         semantic ui css
         js chunks needed
         apollo state
-        rendered content 
+        rendered content
       */
       return res.send(
         htmlData

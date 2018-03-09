@@ -5,7 +5,7 @@ import {
   Button
 } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-import LogoMenu from '../LogoMenu'
+import Logo from '../Logo'
 import SignUp from '../SignUp'
 import Login from '../Login'
 
@@ -18,7 +18,7 @@ class Navbar extends Component {
         size='large'
       >
       <Container>
-        <LogoMenu />
+        <Logo />
         <Menu.Item as={Link} to='/news'>News</Menu.Item>
         <Menu.Item as={Link}to='/contact' >Contact us</Menu.Item>
         <Menu.Item position='right'>

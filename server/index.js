@@ -8,7 +8,7 @@ import serverRenderer from './middleware/renderer'
 
 const path = require("path");
 
-let PORT = 4000;
+const PORT = 4000;
 
 const app = new Express();
 
