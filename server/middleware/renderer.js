@@ -21,8 +21,8 @@ const MobileDetect = require('mobile-detect')
 
 const API_HOST =
   process.env.NODE_ENV == 'production'
-    ? 'http://35.205.252.128:80'
-    : 'http://localhost:3000';
+    ? 'http://35.205.252.128:80/graphql'
+    : 'http://localhost:3000/graphql';
 
 var semantic
 getSemanticCss().then(function(result) {
@@ -39,7 +39,7 @@ function serverRenderer(req, res){
     const client = new ApolloClient({
       ssrMode: true,
       link: createHttpLink({
-        uri: `${API_HOST}/graphql`,
+        uri: API_HOST,
         fetch
       }),
       cache: new InMemoryCache(),

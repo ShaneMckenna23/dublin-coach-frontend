@@ -14,8 +14,8 @@ import Layout from './components/Layout'
 
 const API_HOST =
   process.env.NODE_ENV == 'production'
-    ? 'http://35.205.252.128:80'
-    : 'http://localhost:3000';
+    ? 'http://35.205.252.128:80/graphql'
+    : 'http://localhost:3000/graphql';
 
 const client = new ApolloClient({
   ssrForceFetchDelay: 100,
