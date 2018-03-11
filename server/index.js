@@ -5,19 +5,16 @@ import Loadable from 'react-loadable'
 
 import compression from 'compression'
 import serverRenderer from './middleware/renderer'
+import httpsRedirect from 'express-https-redirect'
 
 const path = require("path");
-const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
-
 const PORT = 4000;
 
 const app = new Express();
 
-// compress all responses
-app.use(compression())
+app.use(httpsRedirect());
 
-// Don't redirect if the hostname is `localhost:port`
-app.use(redirectToHTTPS([/localhost:(\d{4})/]));
+app.use(compression())
 
 const router = Express.Router();
 
