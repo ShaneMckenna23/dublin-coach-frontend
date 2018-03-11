@@ -7,6 +7,7 @@ import compression from 'compression'
 import serverRenderer from './middleware/renderer'
 
 const path = require("path");
+const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 
 const PORT = 4000;
 
@@ -14,6 +15,9 @@ const app = new Express();
 
 // compress all responses
 app.use(compression())
+
+// Don't redirect if the hostname is `localhost:port`
+app.use(redirectToHTTPS([/localhost:(\d{4})/]));
 
 const router = Express.Router();
 
