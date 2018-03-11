@@ -14,11 +14,15 @@ import manifest from '../../build/asset-manifest.json';
 import Layout from '../../src/components/Layout'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import {getSemanticCss} from './semantic'
-import {API_HOST} from '../../config/graphQL'
 
 const path = require("path");
 const fs = require("fs");
 const MobileDetect = require('mobile-detect')
+
+const API_HOST =
+  process.env.NODE_ENV == 'production'
+    ? 'http://35.205.252.128:80'
+    : 'http://localhost:3000';
 
 var semantic
 getSemanticCss().then(function(result) {

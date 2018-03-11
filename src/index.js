@@ -11,7 +11,11 @@ import { HttpLink } from 'apollo-link-http';
 
 import Loadable from 'react-loadable'
 import Layout from './components/Layout'
-import {API_HOST} from '../../config/graphQL'
+
+const API_HOST =
+  process.env.NODE_ENV == 'production'
+    ? 'http://35.205.252.128:80'
+    : 'http://localhost:3000';
 
 const client = new ApolloClient({
   ssrForceFetchDelay: 100,
