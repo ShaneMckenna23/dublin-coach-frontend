@@ -5,14 +5,19 @@ import Loadable from 'react-loadable'
 
 import compression from 'compression'
 import serverRenderer from './middleware/renderer'
-import httpsRedirect from 'express-https-redirect'
 
 const path = require("path");
 const PORT = 4000;
 
 const app = new Express();
 
-app.use(httpsRedirect());
+app.use(function(req, res, next) {
+  if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+      res.redirect('https://' + req.get('Host') + req.url);
+  }
+  else
+      next();
+});
 
 app.use(compression())
 
@@ -34,3 +39,4 @@ Loadable.preloadAll().then(() => {
     `app Server is now running on http://localhost:${PORT}`
   ));
 });
+
