@@ -11,11 +11,12 @@ import { HttpLink } from 'apollo-link-http';
 
 import Loadable from 'react-loadable'
 import Layout from './components/Layout'
+import {API_HOST} from '../../config/graphQL'
 
 const client = new ApolloClient({
   ssrForceFetchDelay: 100,
   connectToDevTools: true,
-  link: new HttpLink({ uri: 'http://localhost:3000/graphql' }),
+  link: new HttpLink({ uri: API_HOST }),
   cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
 });
 
