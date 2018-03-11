@@ -11,13 +11,18 @@ const PORT = 4000;
 
 const app = new Express();
 
-app.use(function(req, res, next) {
-  if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
-      res.redirect('https://' + req.get('Host') + req.url);
-  }
-  else
-      next();
-});
+// app.use(function(req, res, next) {
+//   console.log(req.get('Host'))
+//   if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+//     if(req.get('Host')=='localhost:4000'){
+//       next();
+//     }else{
+//       res.redirect('https://' + req.get('Host') + req.url);
+//     }
+//   }
+//   else
+//       next();
+// });
 
 app.use(compression())
 
