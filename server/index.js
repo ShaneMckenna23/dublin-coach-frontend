@@ -12,11 +12,6 @@ const PORT = 4000;
 const app = new Express();
 
 app.use(function(req, res, next) {
-  console.log('Redirect function!')
-  console.log('Req.Secure: ', req.secure)
-  console.log('X-Forwarded-Proto: ', req.get('X-Forwarded-Proto'))
-  console.log('Host: ', req.get('Host'))
-
   if (req.get('x-forwarded-proto') != "https") {
       res.set('x-forwarded-proto', 'https');
       res.redirect('https://www.dublincoachconcept.com' + req.url);
