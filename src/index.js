@@ -37,5 +37,5 @@ window.onload = () => {
   });
 };
 
-//registerServiceWorker();
+registerServiceWorker();
 
