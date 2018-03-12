@@ -12,17 +12,17 @@ const PORT = 4000;
 const app = new Express();
 
 app.use(function(req, res, next) {
-  console.log(req.get('Redirect function!'))
-  console.log(req.get('Req.Secure: ', req.secure))
-  console.log(req.get('X-Forwarded-Proto: '), req.get('X-Forwarded-Proto'))
-  console.log(req.get('Host: '), req.get('Host'))
+  console.log('Redirect function!')
+  console.log('Req.Secure: ', req.secure)
+  console.log('X-Forwarded-Proto: ', req.get('X-Forwarded-Proto'))
+  console.log('Host: ', req.get('Host'))
 
   if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
     if(req.get('Host')==='localhost:4000'){
       next();
     } else{
       console.log('Redirect to: ', 'https://' + req.get('Host') + req.url)
-      res.redirect('https://' + req.get('Host') + req.url);
+      res.redirect('https://www.dublincaochconcept.com' + req.url);
     }
   } else
       next();
