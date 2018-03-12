@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
     if(req.get('Host')==='localhost:4000'){
       next();
     } else{
-      console.log('Redirect to: ', 'https://' + req.get('Host') + req.url)
+      console.log('https://www.dublincaochconcept.com' + req.url)
       res.redirect('https://www.dublincaochconcept.com' + req.url);
     }
   } else
