@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
       next();
     } else{
       res.set('x-forwarded-proto', 'https');
-      res.redirect('https://www.dublincaochconcept.com' + req.url);
+      res.redirect('https://www.dublincoachconcept.com' + req.url);
     }
   } else{
       next();
