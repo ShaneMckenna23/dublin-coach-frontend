@@ -17,15 +17,17 @@ app.use(function(req, res, next) {
   console.log('X-Forwarded-Proto: ', req.get('X-Forwarded-Proto'))
   console.log('Host: ', req.get('Host'))
 
-  if((!req.secure) && (typeof req.get('X-Forwarded-Proto') === "undefined")) {
-    if(req.get('Host')==='localhost:4000'){
+  if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+    if(req.get('Host') === 'localhost:4000' || typeof req.get('X-Forwarded-Proto')  === "undefined"){
       next();
     } else{
-      console.log('Redirect to: ', 'https://' + req.get('Host') + req.url)
+      console.log('Redirect to: ', 'https://www.dublincaochconcept.com' + req.url)
       res.redirect('https://www.dublincaochconcept.com' + req.url);
     }
-  } else
+  } else{
       next();
+  }
+
 });
 
 app.use(compression())
