@@ -11,6 +11,23 @@ const PORT = 4000;
 
 const app = new Express();
 
+app.use(function(req, res, next) {
+  console.log('Redirect function!')
+  console.log('Req.Secure: ', req.secure)
+  console.log('X-Forwarded-Proto: ', req.get('X-Forwarded-Proto'))
+  console.log('Host: ', req.get('Host'))
+
+  if((!req.secure) && (req.get('X-Forwarded-Proto') === 'http')) {
+    if(req.get('Host')==='localhost:4000'){
+      next();
+    } else{
+      console.log('Redirect to: ', 'https://' + req.get('Host') + req.url)
+      res.redirect('https://www.dublincaochconcept.com' + req.url);
+    }
+  } else
+      next();
+});
+
 app.use(compression())
 
 const router = Express.Router();
