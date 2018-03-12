@@ -5,7 +5,14 @@ import { Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 import NewsItem from '../NewsItem'
 
-const NewsItemContainer = ({ data: { getArticles, loading} }) => {
+const NewsItemContainer = ({ data: { getArticles, loading, error} }) => {
+  if(error){
+    return(
+      <Segment>
+          Failed To Load Resource
+      </Segment>
+    );
+  }
   if(loading){
     return(
       <Segment>
