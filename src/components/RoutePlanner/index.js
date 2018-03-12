@@ -6,6 +6,11 @@ class RoutePlanner extends Component {
     return (
       <div style={{backgroundColor: "#60ac1c", height: "200px"}} >
         stops
+
+        To:
+        <StopSearch/>
+        From:
++       <StopSearch/>
       </div>
     )
   }
