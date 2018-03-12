@@ -21,7 +21,7 @@ const MobileDetect = require('mobile-detect')
 
 const API_HOST =
   process.env.NODE_ENV == 'production'
-    ? 'http://35.205.252.128:80/graphql'
+    ? 'https://api.dublincoachconcept.com/graphql'
     : 'http://localhost:3000/graphql';
 
 var semantic
