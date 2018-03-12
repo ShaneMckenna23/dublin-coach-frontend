@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
 
   if (req.get('x-forwarded-proto') != "https") {
       res.set('x-forwarded-proto', 'https');
-      res.redirect('https://www.dublincoachconcept.com/' + req.url);
+      res.redirect('https://www.dublincoachconcept.com' + req.url);
   } else {
       next();
   }
