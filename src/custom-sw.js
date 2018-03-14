@@ -1,14 +1,14 @@
-self.addEventListener('fetch', function fetcher (event) {
-  var request = event.request;
-  // check if request
+self.addEventListener('fetch', function(event) {
   if (request.url.indexOf('cloud.squidex.io') > -1) {
-    // squidex asset detected
     event.respondWith(
-      caches.match(event.request).then(function(response) {
-        // return from cache, otherwise fetch from network
-        return response || fetch(request);
+      caches.open(cacheName).then(function(cache) {
+        return cache.match(event.request).then(function (response) {
+          return response || fetch(event.request).then(function(response) {
+            cache.put(event.request, response.clone());
+            return response;
+          });
+        });
       })
     );
   }
-  // otherwise: ignore event
 });
