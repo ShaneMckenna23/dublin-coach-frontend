@@ -48,8 +48,4 @@ query ArticleQuery {
     photoDesc
   }
 }
-`, {
-  options: {
-    fetchPolicy: 'cache-and-network'
-  },
-})(NewsItemContainer);
+`)(NewsItemContainer);
