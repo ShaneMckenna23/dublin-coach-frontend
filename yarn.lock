@@ -2541,6 +2541,12 @@ expand-tilde@^2.0.0, expand-tilde@^2.0.2:
   dependencies:
     homedir-polyfill "^1.0.1"
 
+express-naked-redirect@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/express-naked-redirect/-/express-naked-redirect-0.1.2.tgz#050036868726b718539ba7fac13f5f87cea1cd1f"
+  dependencies:
+    parse-domain "^2.0.0"
+
 express@^4.13.3:
   version "4.16.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"
@@ -4741,6 +4747,10 @@ parse-asn1@^5.0.0:
     create-hash "^1.1.0"
     evp_bytestokey "^1.0.0"
     pbkdf2 "^3.0.3"
+
+parse-domain@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/parse-domain/-/parse-domain-2.0.0.tgz#e9f42f697c30f7c2051dc5c55ff4d8a80da7943c"
 
 parse-glob@^3.0.4:
   version "3.0.4"
