@@ -3,7 +3,7 @@ import { Card, Image, Container } from 'semantic-ui-react'
 
 const NewsItem = ({ headline, publishDate, photo, photoDesc, extract}) => (
   <Container>
-  <Card fluid>
+  <Card>
     <Image alt={photoDesc} src={"https://cloud.squidex.io/api/assets/"+ photo} />
     <Card.Content>
       <Card.Header>
