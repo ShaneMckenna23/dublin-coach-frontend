@@ -1,6 +1,6 @@
 self.addEventListener('fetch', function(event) {
   console.log("Fetch Deteched")
-  if (request.url.indexOf('cloud.squidex.io') > -1) {
+  if (event.request.url.indexOf('cloud.squidex.io') > -1) {
     console.log("Fetch: cloud.squidex.io")
     event.respondWith(
       caches.open(cacheName).then(function(cache) {
