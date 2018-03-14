@@ -39,13 +39,17 @@ const NewsItemContainer = ({ data: { getArticles, loading, error} }) => {
 }
 
 export default graphql(gql`
-  query ArticleQuery {
-    getArticles {
-      headline
-      extract
-      publishDate
-      photo
-      photoDesc
-    }
+query ArticleQuery {
+  getArticles {
+    headline
+    extract
+    publishDate
+    photo
+    photoDesc
   }
-`)(NewsItemContainer);
+}
+`, {
+  options: {
+    fetchPolicy: 'cache-and-network'
+  },
+})(NewsItemContainer);
