@@ -21,21 +21,19 @@ const API_HOST =
     : 'http://localhost:3000/graphql';
 
 
-
 const offlineLink = new QueueLink();
-
 // Note: remove these listeners when your app is shut down to avoid leaking listeners.
-window.addEventListener('offline', () => {offlineLink.close()});
+window.addEventListener('offline', () => offlineLink.close());
 window.addEventListener('online', () => offlineLink.open());
 
+
 const link = ApolloLink.from([
+  new RetryLink(),
   offlineLink,
   new HttpLink({ uri: API_HOST }),
-  new RetryLink(),
 ]);
 
 const cache = new InMemoryCache().restore(window.__APOLLO_STATE__).restore(window.localStorage.getItem("apollo-cache-persist"));
-console.log(cache)
 
 persistCache({
   cache,
@@ -45,17 +43,11 @@ persistCache({
 const client = new ApolloClient({
   ssrForceFetchDelay: 100,
   connectToDevTools: true,
-  link: link,
-  cache: cache
+  cache: cache,
+  link: link
 });
 
 window.onload = () => {
-
-  //Delete index.html, server-side-render instead
-  caches.open('sw-precache-v3-sw-precache-webpack-plugin-https://www.dublincoachconcept.com/').then(function(cache) {
-    console.log(cache)
-  })
-
   Loadable.preloadReady().then(() => {
     hydrate(
       <ApolloProvider client={client}>
