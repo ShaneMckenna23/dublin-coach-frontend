@@ -52,7 +52,7 @@ const client = new ApolloClient({
 window.onload = () => {
 
   //Delete index.html, server-side-render instead
-  caches.open('sw-precache-v3-sw-precache-webpack-plugin-https://www.dublincoachconcept.com/ - https://www,dublincoachconcept.com').then(function(cache) {
+  caches.open('sw-precache-v3-sw-precache-webpack-plugin-https://www.dublincoachconcept.com/').then(function(cache) {
     cache.delete('/index.html').then(function(response) {
       console.log(response)
     });
