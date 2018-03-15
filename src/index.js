@@ -25,15 +25,13 @@ const API_HOST =
 const offlineLink = new QueueLink();
 
 // Note: remove these listeners when your app is shut down to avoid leaking listeners.
-window.addEventListener('offline', () => {
-  console.log("Offline!")
-  offlineLink.close()
-});
+window.addEventListener('offline', () => {offlineLink.close()});
 window.addEventListener('online', () => offlineLink.open());
 
 const link = ApolloLink.from([
   offlineLink,
   new HttpLink({ uri: API_HOST }),
+  new RetryLink(),
 ]);
 
 const cache = new InMemoryCache().restore(window.__APOLLO_STATE__);
@@ -47,7 +45,7 @@ const client = new ApolloClient({
   ssrForceFetchDelay: 100,
   connectToDevTools: true,
   link: link,
-  cache: cache,
+  cache: cache
 });
 
 window.onload = () => {
