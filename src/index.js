@@ -34,7 +34,7 @@ const link = ApolloLink.from([
   new RetryLink(),
 ]);
 
-const cache = new InMemoryCache().restore(window.__APOLLO_STATE__);
+const cache = new InMemoryCache().restore(window.__APOLLO_STATE__).restore(window.localStorage.getItem("apollo-cache-persist"));
 
 persistCache({
   cache,
