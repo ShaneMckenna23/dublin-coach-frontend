@@ -43,6 +43,7 @@ query ArticleQuery {
   getArticles {
     headline
     extract
+    text
     publishDate
     photo
     photoDesc

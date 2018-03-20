@@ -17,7 +17,7 @@ function ApolloAutocomplete() {
         isOpen,
       }) =>
         <div>
-          <label {...getLabelProps()}>Enter a stop</label>
+          <label {...getLabelProps()}></label>
           <br />
           <Input {...getInputProps()} />
           {isOpen

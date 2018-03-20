@@ -6,9 +6,8 @@ import Footer from '../Footer'
 const DesktopContainer = ({ children }) => (
   <div>
     <Navbar />
-    <Container style={{ padding: '3.5em 0em' }} vertical="true">
-      {children}
-    </Container>
+        <section style={{'padding': '1.8em 0em'}}/>
+        {children}
     <Footer />
   </div>
 )

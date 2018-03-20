@@ -5,9 +5,8 @@ import {Container} from 'semantic-ui-react'
 const MobileContainer = ({ children }) => (
   <div>
     <NavbarMobile />
-    <Container style={{ padding: '3em 0em' }} vertical="true">
+    <section style={{ padding: '1.6em 0em' }} />
       {children}
-    </Container>
   </div>
 )
 
