@@ -3,8 +3,8 @@ import { Image, Container, Segment, Grid, Header} from 'semantic-ui-react'
 
 const NewsItem = ({ headline, publishDate, photo, photoDesc, extract,text}) => (
   <Container>
-    <Segment style={{ padding: '8em 0em' }} vertical>
-        <Grid container stackable verticalAlign='middle'>
+    <Segment style={{ padding: '2em 0em' }} vertical>
+        <Grid container stackable verticalAlign='top'>
           <Grid.Row>
             <Grid.Column width={8}>
               <Header as='h3' style={{ fontSize: '2em' }}>{headline}</Header>
@@ -17,7 +17,7 @@ const NewsItem = ({ headline, publishDate, photo, photoDesc, extract,text}) => (
                 bordered
                 rounded
                 size='large'
-                src={"https://cloud.squidex.io/api/assets/"+ photo}
+                src={photo}
               />
             </Grid.Column>
           </Grid.Row>

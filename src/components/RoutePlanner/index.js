@@ -23,7 +23,7 @@ const Inline = styled.div`
   display:inline-block
 `
 
-
+//TODO: switch to booking mode!
 class RoutePlanner extends Component {
   render () {
     return (

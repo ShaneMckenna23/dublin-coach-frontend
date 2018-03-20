@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import {
   Input
 } from 'semantic-ui-react'
-
+import {Link} from 'react-router-dom'
+import styled from 'styled-components'
 
 import Banner from '../Banner'
-import LoginLearn from '../LoginLearn'
-import Login from '../Login'
 import RoutePlanner from '../RoutePlanner'
-import {Link} from 'react-router-dom'
+import ArticleSection from '../ArticleSection'
+
+const Title = styled.h1`
+  color: black;
+`;
 
 class Homepage extends Component {
   constructor(props) {
@@ -25,7 +28,7 @@ class Homepage extends Component {
       <div>
         <Banner />
         <RoutePlanner />
-        <Link to='/news'>News</Link>
+        <ArticleSection />
       </div>
     )
   }
