@@ -4,10 +4,15 @@ import {Link} from 'react-router-dom'
 import {Segment, Container, Grid, Header, List, Icon, Image} from 'semantic-ui-react'
 
 
+const Wrapper = styled.section`
+  padding: 5em 0em;
+  background: #60ac1c;
+`
+
 const Footer = ()=> (
-    <Segment inverted vertical style={{ padding: '5em 0em', background:'#60ac1c' }}>
+    <Wrapper>
       <Container>
-        <Grid divided inverted stackable>
+        <Grid divided stackable>
           <Grid.Row>
             <Grid.Column width={3}>
               <Header inverted as='h4' content='About' />
@@ -26,9 +31,9 @@ const Footer = ()=> (
             <Grid.Column width={7}>
               <Header as='h4' inverted>Social Links</Header>
               <div>
-                <Icon name='facebook f' size='large' />
-                <Icon name='twitter' size='large' />
-                <Icon name='instagram' size='large' />
+                <Icon name='facebook f' inverted size='large' />
+                <Icon name='twitter' inverted size='large' />
+                <Icon name='instagram' inverted size='large' />
               </div>
             </Grid.Column>
           </Grid.Row>
@@ -37,7 +42,7 @@ const Footer = ()=> (
           </Grid.Row>
         </Grid>
       </Container>
-    </Segment>
+    </Wrapper>
 )
 
 export default Footer
