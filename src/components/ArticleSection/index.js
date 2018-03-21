@@ -20,8 +20,7 @@ class ArticleSection extends Component{
     render(){
       const {count} = this.props.count
 
-      if(this.props.data.error){
-        console.log(this.props.data.error)
+      if(this.props.data.error && !this.props.data.getArticles){
         return(
           <div>Opps! Something went wrong.</div>
         )
