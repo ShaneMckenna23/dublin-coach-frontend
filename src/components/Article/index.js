@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Container, Segment, Grid, Header} from 'semantic-ui-react'
 
-const Article = ({ headline, publishDate, photo, photoDesc, extract, text}) => (
+const Article = ({ headline, publishDate, photo, photoDesc, extract, text, link}) => (
   <Container>
     <Segment style={{ padding: '2em 0em' }} vertical>
         <Grid container stackable verticalAlign='top'>
@@ -11,6 +11,7 @@ const Article = ({ headline, publishDate, photo, photoDesc, extract, text}) => (
               <p style={{ fontSize: '1.33em' }}>
                 {text}
               </p>
+              <a href={link} style={{textAlign: "bottom"}}>Lean More</a>
             </Grid.Column>
             <Grid.Column floated='right' width={6}>
               <Image

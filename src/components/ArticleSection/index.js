@@ -16,14 +16,15 @@ class ArticleSection extends Component{
           <Container>
                   <Title>Latest Updates & Upcoming Events</Title>
                   <section>
-                    {this.props.data.loading ? null: this.props.data.getArticles.map(({headline, publishDate, photo, photoDesc, extract, text}) => (
+                    {this.props.data.loading ? null: this.props.data.getArticles.map(({headline, publishDate, photo, photoDesc, extract, text, link}) => (
                           <Article
                             headline={headline}
                             publishDate={publishDate}
                             photo={photo}
                             photoDesc={photoDesc}
                             extract={extract}
-                            text={text}/>
+                            text={text}
+                            link={link}/>
                         ))}
                   </section>
           </Container>
@@ -31,17 +32,18 @@ class ArticleSection extends Component{
     }
 }
 
-
-
 export default graphql(gql`
-  query ArticleQuery($count: Int!) {
-    getArticles(count: $count) {
-      headline
-      extract
-      text
-      publishDate
-      photo
-      photoDesc
-    }
+query ArticleQuery($count: Int!) {
+  getArticles(count: $count) {
+    headline
+    extract
+    text
+    link
+    publishDate
+    photo
+    photoDesc
   }
-`)(ArticleSection);
+}
+`, {
+  options: { fetchPolicy: 'cache-and-network' },
+})(ArticleSection)
