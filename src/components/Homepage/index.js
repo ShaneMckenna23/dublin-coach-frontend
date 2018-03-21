@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import Banner from '../Banner'
 import RoutePlanner from '../RoutePlanner'
 import ArticleSection from '../ArticleSection'
+import ServiceSection from '../ServiceSection'
 
 const Title = styled.h1`
   color: black;
@@ -23,12 +24,19 @@ class Homepage extends Component {
     };
   }
 
+  componentDidMount () {
+    window.scrollTo(0, 0)
+  }
+
   render () {
+    const {isMobile} = this.props
+
     return (
       <div>
-        <Banner />
-        <RoutePlanner />
-        <ArticleSection />
+        <Banner isMobile={isMobile} />
+        <RoutePlanner isMobile={isMobile} />
+        <ArticleSection count={2}/>
+        <ServiceSection />
       </div>
     )
   }
