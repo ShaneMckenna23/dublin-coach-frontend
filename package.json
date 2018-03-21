@@ -17,6 +17,7 @@
     "graphql": "^0.13.1",
     "graphql-tag": "^2.7.3",
     "ignore-styles": "^5.0.1",
+    "ismobilejs": "^0.4.1",
     "mobile-detect": "^1.4.1",
     "node-fetch": "^2.0.0",
     "react": "^16.2.0",

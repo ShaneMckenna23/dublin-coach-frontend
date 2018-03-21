@@ -2,39 +2,32 @@ import React, { Component} from 'react'
 import DesktopContainer from '../DesktopContainer'
 import MobileContainer from '../MobileContainer'
 import {Switch, Route} from "react-router"
-
 import Loadable from "react-loadable"
+import ChunkLoader from '../ChunkLoader'
 
 const Playground = Loadable({
   loader: () => import(/* webpackChunkName: "Playground" */ "../Playground"),
-  loading: () => <div>loading...</div>,
+  loading: () => <ChunkLoader/>,
   modules: ['Playground']
 });
 
 const Homepage = Loadable({
   loader: () => import(/* webpackChunkName: "Homepage" */ "../Homepage"),
-  loading: () => <div>loading...</div>,
+  loading: () => <ChunkLoader/>,
   modules: ['Homepage']
 });
 
 const NewsPage = Loadable({
   loader: () => import(/* webpackChunkName: "NewsPage" */ "../NewsPage"),
-  loading: () => <div>loading...</div>,
+  loading: () => <ChunkLoader/>,
   modules: ['NewsPage']
 });
 
 const ContactPage = Loadable({
   loader: () => import(/* webpackChunkName: "ContactPage" */ "../ContactPage"),
-  loading: () => <div>loading...</div>,
+  loading: () => <ChunkLoader/>,
   modules: ['ContactPage']
 });
-
-const Styled = Loadable({
-  loader: () => import(/* webpackChunkName: "Styled" */ "../Styled"),
-  loading: () => <div>loading...</div>,
-  modules: ['Styled']
-});
-
 
 class Layout extends Component {
 
@@ -70,7 +63,7 @@ class Layout extends Component {
       return this.props.isMobile
     }else{
       const { width } = this.state;
-      return width <= 1075
+      return width <= 765
     }
   }
 
@@ -78,11 +71,10 @@ class Layout extends Component {
     const isMobile = this.isMobile()
 
     const routes = <Switch>
-      <Route path="/" exact component={Homepage}/>
+      <Route path="/" exact render={routeProps => <Homepage {...routeProps} isMobile={isMobile}/>} />
       <Route path="/news" component={NewsPage}/>
       <Route path="/contact" component={ContactPage}/>
       <Route path="/playground" component={Playground}/>
-      <Route path="/style" component={Styled} />
     </Switch>
 
     if (isMobile) {
