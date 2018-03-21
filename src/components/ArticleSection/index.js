@@ -29,7 +29,7 @@ class ArticleSection extends Component{
           <Container>
                   <Title>Latest Updates & Upcoming Events</Title>
                   <section>
-                    {this.props.data.loading ?  ArticleLoader : this.props.data.getArticles.map(({headline, publishDate, photo, photoDesc, extract, text, link}) => (
+                    {this.props.data.getArticles ? this.props.data.getArticles.map(({headline, publishDate, photo, photoDesc, extract, text, link}) => (
                           <Article
                             headline={headline}
                             publishDate={publishDate}
@@ -38,7 +38,7 @@ class ArticleSection extends Component{
                             extract={extract}
                             text={text}
                             link={link}/>
-                        ))}
+                        )): ArticleLoader }
                   </section>
           </Container>
       )
