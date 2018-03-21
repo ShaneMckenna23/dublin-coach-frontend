@@ -28,6 +28,7 @@ window.addEventListener('online', () => offlineLink.open());
 
 
 const link = ApolloLink.from([
+  new RetryLink(),
   offlineLink,
   new HttpLink({ uri: API_HOST }),
 ]);

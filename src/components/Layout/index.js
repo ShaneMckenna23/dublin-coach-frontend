@@ -5,11 +5,6 @@ import {Switch, Route} from "react-router"
 import Loadable from "react-loadable"
 import ChunkLoader from '../ChunkLoader'
 
-const Playground = Loadable({
-  loader: () => import(/* webpackChunkName: "Playground" */ "../Playground"),
-  loading: () => <ChunkLoader/>,
-  modules: ['Playground']
-});
 
 const Homepage = Loadable({
   loader: () => import(/* webpackChunkName: "Homepage" */ "../Homepage"),
@@ -70,12 +65,11 @@ class Layout extends Component {
   render() {
     const isMobile = this.isMobile()
 
-    const routes = <Switch>
-      <Route path="/" exact render={routeProps => <Homepage {...routeProps} isMobile={isMobile}/>} />
-      <Route path="/news" component={NewsPage}/>
-      <Route path="/contact" component={ContactPage}/>
-      <Route path="/playground" component={Playground}/>
-    </Switch>
+    const routes =  <Switch>
+                      <Route path="/" exact render={routeProps => <Homepage {...routeProps} isMobile={isMobile}/>} />
+                      <Route path="/news" component={NewsPage}/>
+                      <Route path="/contact" component={ContactPage}/>
+                    </Switch>
 
     if (isMobile) {
       return (

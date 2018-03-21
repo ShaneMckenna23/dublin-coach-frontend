@@ -21,6 +21,7 @@ class ArticleSection extends Component{
       const {count} = this.props.count
 
       if(this.props.data.error){
+        console.log(this.props.data.error)
         return(
           <div>Opps! Something went wrong.</div>
         )

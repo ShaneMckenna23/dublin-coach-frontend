@@ -3,6 +3,8 @@ import StopSearch from '../StopSearch'
 import {Container, Button} from 'semantic-ui-react'
 import styled from 'styled-components';
 
+import BookPlanButton from '../BookPlanButton'
+
 const DesktopWrapper = styled.section`
   background: #60ac1c;
   border-radius: 25px;
@@ -50,6 +52,7 @@ class RoutePlanner extends Component {
               <Inline>
                 <Button color='orange'> Continue </Button>
               </Inline>
+              <BookPlanButton />
             </section>
         </Wrapper>
       </Container>
