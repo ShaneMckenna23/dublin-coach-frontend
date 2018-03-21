@@ -19,6 +19,7 @@ class Navbar extends Component {
       >
       <Container>
         <Logo />
+        <Menu.Item as={Link} to='/destinations'>Destinations</Menu.Item>
         <Menu.Item as={Link} to='/news'>News</Menu.Item>
         <Menu.Item as={Link}to='/contact' >Contact us</Menu.Item>
         <Menu.Item position='right'>
