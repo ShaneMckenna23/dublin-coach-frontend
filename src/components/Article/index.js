@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, Container, Segment, Grid, Header} from 'semantic-ui-react'
 
-const NewsItem = ({ headline, publishDate, photo, photoDesc, extract,text}) => (
+const Article = ({ headline, publishDate, photo, photoDesc, extract, text}) => (
   <Container>
     <Segment style={{ padding: '2em 0em' }} vertical>
         <Grid container stackable verticalAlign='top'>
@@ -17,7 +17,7 @@ const NewsItem = ({ headline, publishDate, photo, photoDesc, extract,text}) => (
                 bordered
                 rounded
                 size='large'
-                src={photo}
+                src={"https://cloud.squidex.io/api/assets/"+ photo}
               />
             </Grid.Column>
           </Grid.Row>
@@ -26,6 +26,6 @@ const NewsItem = ({ headline, publishDate, photo, photoDesc, extract,text}) => (
   </Container>
 )
 
-export default NewsItem
+export default Article
 
 

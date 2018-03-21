@@ -1,23 +1,47 @@
 import React, {Component} from 'react'
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import {Segment,Container} from 'semantic-ui-react'
-import NewsItem from '../NewsItem'
+import Article from '../Article'
 import styled from 'styled-components'
 
 const Title = styled.h1`
   color: black;
 `;
-//TODO: Take prop count, use on news and homepage
+
 class ArticleSection extends Component{
     render(){
-        return(
-            <Container>
-                <Segment>
-                    <Title>Latest Updates & Upcoming Events</Title>
-                    <NewsItem headline="Example Title" publishDate="02-03-1996" photo="/logo.png" photoDesc="Logo" extract="123" text="liisgd osoudha iuahsd habsd uhwe lahsbd iuasd knabd poouasdk kbasuhda slkkhbasd"/>
-                </Segment>
-            </Container>
-        )
+      const {count} = this.props.count
+      return(
+          <Container>
+                  <Title>Latest Updates & Upcoming Events</Title>
+                  <section>
+                    {this.props.data.loading ? null: this.props.data.getArticles.map(({headline, publishDate, photo, photoDesc, extract, text}) => (
+                          <Article
+                            headline={headline}
+                            publishDate={publishDate}
+                            photo={photo}
+                            photoDesc={photoDesc}
+                            extract={extract}
+                            text={text}/>
+                        ))}
+                  </section>
+          </Container>
+      )
     }
 }
 
-export default ArticleSection
+
+
+export default graphql(gql`
+  query ArticleQuery($count: Int!) {
+    getArticles(count: $count) {
+      headline
+      extract
+      text
+      publishDate
+      photo
+      photoDesc
+    }
+  }
+`)(ArticleSection);

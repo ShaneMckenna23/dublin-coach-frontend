@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
 import {Grid} from 'semantic-ui-react'
-import NewsItemContainer from '../NewsItemContainer'
+import ArticleSection from '../ArticleSection'
+import styled from 'styled-components'
+
+const Wrapper = styled.section`
+  padding-top: 2em;
+  padding-bottom: 2em
+`
 
 class NewsPage extends Component {
+
+  componentDidMount () {
+    window.scrollTo(0, 0)
+  }
+
   render () {
     return (
-      <Grid container stackable verticalAlign='middle'>
+      <Wrapper>
+        <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
-            <div>
-              <h1>Latest Updates & Upcoming Events</h1>
-              <NewsItemContainer />
-            </div>
+              <ArticleSection count={10} />
           </Grid.Row>
         </Grid>
+      </Wrapper>
     )
   }
 }
