@@ -59,5 +59,6 @@ class BookPlanButton extends Component {
 
 export default compose(
     graphql(updatePlannerState, { name: 'updatePlannerState' }),
-    graphql(getPlannerState, { name: 'getPlannerState' })
+    graphql(getPlannerState, { name: 'getPlannerState',
+    skip: typeof window === 'undefined' })
   )(BookPlanButton)
