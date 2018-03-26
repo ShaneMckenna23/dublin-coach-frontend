@@ -4,12 +4,19 @@ import MobileContainer from '../MobileContainer'
 import {Switch, Route} from "react-router"
 import Loadable from "react-loadable"
 import ChunkLoader from '../ChunkLoader'
+import NoMatch from '../NoMatch'
 
 
 const Homepage = Loadable({
   loader: () => import(/* webpackChunkName: "Homepage" */ "../Homepage"),
   loading: () => <ChunkLoader/>,
   modules: ['Homepage']
+});
+
+const DestinationPage = Loadable({
+  loader: () => import(/* webpackChunkName: "DestinationPage" */ "../DestinationPage"),
+  loading: () => <ChunkLoader/>,
+  modules: ['DestinationPage']
 });
 
 const NewsPage = Loadable({
@@ -69,6 +76,8 @@ class Layout extends Component {
                       <Route path="/" exact render={routeProps => <Homepage {...routeProps} isMobile={isMobile}/>} />
                       <Route path="/news" component={NewsPage}/>
                       <Route path="/contact" component={ContactPage}/>
+                      <Route path="/destinations" component={DestinationPage}/>
+                      <Route component={NoMatch}/>
                     </Switch>
 
     if (isMobile) {

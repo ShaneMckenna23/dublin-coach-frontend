@@ -14,9 +14,7 @@ class NavbarMobile extends Component {
         fixed={'top'}
         size='small'
       >
-      <Container>
         <LogoMenu />
-      </Container>
     </Menu>
     )
   }

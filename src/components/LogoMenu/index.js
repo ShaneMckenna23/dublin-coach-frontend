@@ -1,29 +1,42 @@
 import React, { Component } from 'react'
+import { Dropdown, Header, Icon } from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+import Logo from './logo.js'
 
 class LogoMenu extends Component {
-
   constructor(){
     super()
     this.state = {
-      isMenuOpen: false
+      menuOpen: false
     }
   }
 
-  onClick = ()=> {
-    this.setState((prevState)=> {
-      return{
-        isMenuOpen : !prevState.isMenuOpen
-      }
+  onOpen = ()=>{
+    this.setState({
+      menuOpen: true
+    })
+  }
+
+  onClose = ()=>{
+    this.setState({
+      menuOpen: false
     })
   }
 
   render () {
     return(
-      <div>
-        <div onClick={this.onClick}>
-          <img src='/logo.png' alt="Logo Menu" style={{width:" 50px", height:"32px", marginTop:".5em", marginLeft:".5em"}} />
-        </div>
-      </div>
+      <Dropdown icon={<Logo menuOpen={this.state.menuOpen}/>} onOpen={this.onOpen} onClose={this.onClose}>
+      <Dropdown.Menu style={{width: "100vw", height: "100vh"}}>
+        <Dropdown.Item as={Link} to='/'>Home</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item as={Link} to='/destinations'>Destinations</Dropdown.Item>
+        <Dropdown.Item as={Link} to='/news'>News</Dropdown.Item>
+        <Dropdown.Item as={Link} to='/contact'>Contact us</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item>Log In</Dropdown.Item>
+        <Dropdown.Item>Sign Up</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
     )
   }
 }

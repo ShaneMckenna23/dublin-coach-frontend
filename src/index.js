@@ -16,6 +16,8 @@ import { RetryLink } from 'apollo-link-retry';
 import Loadable from 'react-loadable'
 import Layout from './components/Layout'
 
+import {resolvers, defaults} from './resolvers'
+
 const API_HOST =
   process.env.NODE_ENV === 'production'
     ? 'https://api.dublincoachconcept.com/graphql'
@@ -27,33 +29,11 @@ const offlineLink = new QueueLink();
 window.addEventListener('offline', () => offlineLink.close());
 window.addEventListener('online', () => offlineLink.open());
 
-const defaultState = {
-  routePlanner: {
-    __typename: 'routePlanner',
-    state: 'Plan'
-  }
-}
+
 
 const cache = new InMemoryCache().restore(window.__APOLLO_STATE__)
 
-const stateLink = withClientState({
-  cache,
-  defaults: defaultState,
-  resolvers: {
-    Mutation: {
-      updatePlannerState: (_, d, { cache }) => {
-        cache.writeData({
-          data: {
-            routePlanner: {
-              state: d.state,
-              __typename: 'routePlanner'
-            }
-          }
-        })
-      }
-    }
-  }
-});
+const stateLink = withClientState({cache, defaults, resolvers});
 
 const link = ApolloLink.from([
   stateLink,

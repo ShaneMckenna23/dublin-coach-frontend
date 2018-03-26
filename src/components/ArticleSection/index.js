@@ -10,8 +10,8 @@ const Title = styled.h1`
 `;
 
 const Wrapper = styled.section`
-  height: 20vh;
-  padding-top: 8em;
+  height: 60vh;
+  padding-top: 17em;
 `;
 
 const ArticleLoader = <Wrapper><Loader active inline='centered' /></Wrapper>;
@@ -25,6 +25,7 @@ class ArticleSection extends Component{
           <Container>
             <Title>Latest Updates & Upcoming Events</Title>
             <div>Opps! Something went wrong.</div>
+            <Wrapper/>
           </Container>
         )
       }else{

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import StopSearch from '../StopSearch'
 import {Container, Button} from 'semantic-ui-react'
 import styled from 'styled-components';
-import { withApollo } from 'react-apollo';
-
+import { withApollo,graphql } from 'react-apollo';
+import {getPlannerState} from '../../graphql'
 import BookPlanButton from '../BookPlanButton'
 
 const DesktopWrapper = styled.section`
@@ -42,6 +42,7 @@ const Inline = styled.div`
 class RoutePlanner extends Component {
   render () {
     const Wrapper = this.props.isMobile ? MobileWrapper : DesktopWrapper
+    const Booking = this.props.getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
     return (
       <Container fluid={this.props.isMobile}>
         <Wrapper>
@@ -61,7 +62,7 @@ class RoutePlanner extends Component {
               <Inline>
                 <Button color='orange' stlye={{float: "right"}} size="massive"> Continue </Button>
               </Inline>
-
+              {Booking}
             </section>
         </Wrapper>
       </Container>
@@ -69,5 +70,6 @@ class RoutePlanner extends Component {
   }
 }
 
-export default withApollo(RoutePlanner)
+export default graphql(getPlannerState, { name: 'getPlannerState',
+skip: typeof window === 'undefined' })(RoutePlanner)
 
