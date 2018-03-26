@@ -41,8 +41,11 @@ const Inline = styled.div`
 //TODO: switch to booking mode!
 class RoutePlanner extends Component {
   render () {
-    const Wrapper = this.props.isMobile ? MobileWrapper : DesktopWrapper
-    const Booking = this.props.getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
+    const {getPlannerState, isMobile} = this.props
+    const Wrapper = isMobile ? MobileWrapper : DesktopWrapper
+    if(getPlannerState){
+      const Booking = getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
+    }
     return (
       <Container fluid={this.props.isMobile}>
         <Wrapper>
