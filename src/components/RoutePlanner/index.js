@@ -43,8 +43,9 @@ class RoutePlanner extends Component {
   render () {
     const {getPlannerState, isMobile} = this.props
     const Wrapper = isMobile ? MobileWrapper : DesktopWrapper
+    let Booking
     if(getPlannerState){
-      const Booking = getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
+      Booking = getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
     }
     return (
       <Container fluid={this.props.isMobile}>
