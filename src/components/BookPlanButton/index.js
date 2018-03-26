@@ -1,8 +1,15 @@
 import React,{ Component } from 'react'
 import { Button, Icon} from 'semantic-ui-react'
+import styled from 'styled-components'
+import { graphql,compose } from 'react-apollo';
+import {updatePlannerState,getPlannerState} from '../../graphql'
+
+const Wrapper = styled.div`
+  display:inline-block;
+  float: right
+`
 
 class BookPlanButton extends Component {
-
   constructor (props) {
     super(props)
     this.state = {
@@ -10,12 +17,19 @@ class BookPlanButton extends Component {
     }
   }
 
-  bookOnClick = ()=> {
-    this.setState((prevState)=>{
-      return ({
-        bookActive: !prevState.bookActive
+  bookOnClick = async () => {
+    const {updatePlannerState} = this.props
+    try {
+      await updatePlannerState({
+        variables: {
+          state: 'Book'
+        }
       })
-    })
+      console.log(this.props.getPlannerState.routePlanner.state)
+      console.log("Data:", this.props.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   planOnClick = ()=> {
@@ -28,17 +42,22 @@ class BookPlanButton extends Component {
 
   render(){
     return(
-      <Button.Group size='large'>
-        <Button positive={this.state.bookActive} onClick={this.bookOnClick}>
-          <Icon name='payment' /> Book
-        </Button>
-        <Button.Or />
-        <Button positive={!this.state.bookActive} onClick={this.planOnClick}>
-          <Icon name='search' /> Plan
-        </Button>
-      </Button.Group>
+      <Wrapper>
+        <Button.Group size='large'>
+          <Button color={this.state.bookActive ? "orange": ""} onClick={this.bookOnClick}>
+            <Icon name='payment' /> Book
+          </Button>
+          <Button.Or />
+          <Button color={!this.state.bookActive ? "orange": ""} onClick={this.planOnClick}>
+            <Icon name='search' /> Plan
+          </Button>
+        </Button.Group>
+      </Wrapper>
     )
   }
 }
 
-export default BookPlanButton
+export default compose(
+    graphql(updatePlannerState, { name: 'updatePlannerState' }),
+    graphql(getPlannerState, { name: 'getPlannerState' })
+  )(BookPlanButton)

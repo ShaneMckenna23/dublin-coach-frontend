@@ -19,7 +19,7 @@ function ApolloAutocomplete() {
         <div>
           <label {...getLabelProps()}></label>
           <br />
-          <Input {...getInputProps()} />
+          <Input size="massive" {...getInputProps()} />
           {isOpen
             ? <div>
                 <ApolloAutocompleteMenuWithData
