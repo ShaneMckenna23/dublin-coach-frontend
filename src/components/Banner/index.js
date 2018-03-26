@@ -8,13 +8,14 @@ const DesktopWrapper = styled.section`
   width: 100%;
   background-image: url("/banner/desktop.jpg");
   background-repeat: no-repeat;
+  background-position: center;
 `;
 
 const MobileWrapper = styled.section`
   height: 18em;
-  width: 100%;
   background-image: url("/banner/mobile.jpg");
   background-repeat: no-repeat;
+  background-position: center;
 `;
 
 class Banner extends Component {
