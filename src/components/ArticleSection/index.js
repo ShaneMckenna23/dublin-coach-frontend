@@ -22,7 +22,10 @@ class ArticleSection extends Component{
 
       if(this.props.data.error && !this.props.data.getArticles){
         return(
-          <div>Opps! Something went wrong.</div>
+          <Container>
+            <Title>Latest Updates & Upcoming Events</Title>
+            <div>Opps! Something went wrong.</div>
+          </Container>
         )
       }else{
         return(
