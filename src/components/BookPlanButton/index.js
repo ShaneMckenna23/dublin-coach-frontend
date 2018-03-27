@@ -37,14 +37,21 @@ class BookPlanButton extends Component {
   }
 
   render(){
+    const {getPlannerState} = this.props
+    let bookColor = ""
+    let planColor = "orange"
+    if (typeof getPlannerState != 'undefined'){
+      bookColor = getPlannerState.routePlanner.state === "Book" ? "orange": ""
+      planColor = getPlannerState.routePlanner.state === "Plan" ? "orange": ""
+    }
     return(
       <Wrapper>
         <Button.Group size='large'>
-          <Button color={this.props.getPlannerState.routePlanner.state === "Book" ? "orange": ""} onClick={this.bookOnClick}>
+          <Button color={bookColor} onClick={this.bookOnClick}>
             <Icon name='payment' /> Book
           </Button>
           <Button.Or />
-          <Button color={this.props.getPlannerState.routePlanner.state === "Plan" ? "orange": ""} onClick={this.planOnClick}>
+          <Button color={planColor} onClick={this.planOnClick}>
             <Icon name='search' /> Plan
           </Button>
         </Button.Group>

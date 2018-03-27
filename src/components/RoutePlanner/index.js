@@ -43,8 +43,8 @@ class RoutePlanner extends Component {
   render () {
     const {getPlannerState, isMobile} = this.props
     const Wrapper = isMobile ? MobileWrapper : DesktopWrapper
-    let Booking
-    if(getPlannerState){
+    let Booking = null
+    if (typeof getPlannerState != 'undefined'){
       Booking = getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
     }
     return (
