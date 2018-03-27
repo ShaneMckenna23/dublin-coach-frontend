@@ -3,21 +3,26 @@ import gql from 'graphql-tag'
 export const defaults = {
   routePlanner: {
     __typename: 'routePlanner',
-    state: 'Plan'
+    state: 'Plan',
+    to: '',
+    from: ''
   }
 };
 
 export const resolvers = {
   Mutation: {
-    updatePlannerState: (_, d, { cache }) => {
+    updatePlannerState: (_, data, { cache }) => {
       cache.writeData({
         data: {
           routePlanner: {
-            state: d.state,
+            state: data.state,
+            to: data.to,
+            from: data.from,
             __typename: 'routePlanner'
           }
         }
       })
+      console.log(cache)
     }
   }
 }

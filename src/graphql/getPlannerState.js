@@ -4,6 +4,8 @@ export default gql`
   query {
     routePlanner @client {
       state
+      to
+      from
     }
   }
 `

@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import StopSearch from '../StopSearch'
 import {Container, Button} from 'semantic-ui-react'
 import styled from 'styled-components';
-import { withApollo,graphql } from 'react-apollo';
-import {getPlannerState} from '../../graphql'
+import { compose,graphql } from 'react-apollo';
+import {getPlannerState,updatePlannerState} from '../../graphql'
 import BookPlanButton from '../BookPlanButton'
+import ContinueButton from './continueButton'
 
 const DesktopWrapper = styled.section`
   background: #60ac1c;
@@ -29,51 +30,88 @@ const Title = styled.h1`
   display:inline-block;
 `;
 
-const Label = styled.h3`
-  color: white;
-  padding: 0px;
-`
 const Inline = styled.div`
   display:inline-block;
   margin: 0em 1em;
 `
 
-//TODO: switch to booking mode!
 class RoutePlanner extends Component {
+  state = {
+    error: false
+  }
+
+  componentDidMount(){
+    const {updatePlannerState} = this.props
+    try {
+      updatePlannerState({
+        variables: {
+          state: 'Plan',
+          to: '',
+          from: ''
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  checkInfo = () => {
+    const {getPlannerState} = this.props
+    if(getPlannerState.routePlanner.to && getPlannerState.routePlanner.from ){
+      return true
+    }else{
+      return false
+    }
+  }
+
+  onClick = (history) => {
+    let validInfo = this.checkInfo()
+    if(validInfo){
+      history.push('/new-location')
+    }else{
+      this.setState({
+        error: true
+      })
+    }
+  }
+
   render () {
     const {getPlannerState, isMobile} = this.props
     const Wrapper = isMobile ? MobileWrapper : DesktopWrapper
+
     let Booking = null
     if (typeof getPlannerState != 'undefined'){
       Booking = getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
     }
+
     return (
       <Container fluid={this.props.isMobile}>
         <Wrapper>
           <div>
-          <Title>Plan Your Journey</Title>
-          <BookPlanButton />
+            <Title>Plan Your Journey</Title>
+            <BookPlanButton />
           </div>
-            <section>
-              <Inline>
-                <Label>To:</Label>
-                <StopSearch/>
-              </Inline>
-              <Inline>
-                <Label>From:</Label>
-                <StopSearch/>
-              </Inline>
-              <Inline>
-                <Button color='orange' stlye={{float: "right"}} size="massive"> Continue </Button>
-              </Inline>
-              {Booking}
-            </section>
+          <section>
+            <Inline>
+              <StopSearch label="From" placeholder="Departure Stop" isMobile={isMobile}/>
+            </Inline>
+            <Inline>
+              <StopSearch label="To" placeholder="Destination Stop" isMobile={isMobile}/>
+            </Inline>
+            <Inline>
+              <ContinueButton error={this.state.error} color='orange' stlye={{float: "right"}} size="massive" onClick={this.onClick}> Continue </ContinueButton>
+            </Inline>
+            {Booking}
+          </section>
         </Wrapper>
       </Container>
     )
   }
 }
 
-export default graphql(getPlannerState, { name: 'getPlannerState',
-skip: typeof window === 'undefined' })(RoutePlanner)
+export default compose(
+  graphql(updatePlannerState, { name: 'updatePlannerState' }),
+  graphql(getPlannerState, { name: 'getPlannerState',
+  skip: typeof window === 'undefined' })
+)(RoutePlanner)
 
