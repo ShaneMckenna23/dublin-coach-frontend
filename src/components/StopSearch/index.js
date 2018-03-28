@@ -28,6 +28,7 @@ const DropdownMobile = styled.div`
   border: solid 1px grey;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  z-index: 99;
 `
 
 const DropdownItem = styled.div`
