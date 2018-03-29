@@ -10,6 +10,7 @@
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicons/favicon.ico">
+    <link rel="stylesheet" id="lazystyle" type="text/css" href="">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -43,12 +44,7 @@
     -->
     <script>
       window.onload = function() {
-        var lazycss = document.createElement('link');
-        lazycss.rel = 'stylesheet';
-        lazycss.href = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css';
-        lazycss.type = 'text/css';
-        var link = document.getElementsByTagName('link')[0];
-        link.parentNode.insertBefore(lazycss, link);
+        document.getElementById('lazystyle').href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css';
       };
     </script>
   </body>
