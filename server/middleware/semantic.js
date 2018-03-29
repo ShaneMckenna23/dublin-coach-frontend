@@ -11,7 +11,7 @@ export function getSemanticCss () {
           console.error('err', err);
           reject(err)
       }else{
-          resolve(cssData)
+          resolve("")
       }
     })
   })
