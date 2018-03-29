@@ -42,12 +42,14 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-      var lazycss = document.createElement('link');
-      lazycss.rel = 'stylesheet';
-      lazycss.href = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css';
-      lazycss.type = 'text/css';
-      var link = document.getElementsByTagName('link')[0];
-      link.parentNode.insertBefore(lazycss, link);
+      window.onload = function() {
+        var lazycss = document.createElement('link');
+        lazycss.rel = 'stylesheet';
+        lazycss.href = 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css';
+        lazycss.type = 'text/css';
+        var link = document.getElementsByTagName('link')[0];
+        link.parentNode.insertBefore(lazycss, link);
+      };
     </script>
   </body>
 </html>
