@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import StopSearch from '../StopSearch'
-import {Container, Button} from 'semantic-ui-react'
+import {Container, Button,Message} from 'semantic-ui-react'
 import styled from 'styled-components';
 import { compose,graphql } from 'react-apollo';
 import {getPlannerState,updatePlannerState} from '../../graphql'
@@ -72,6 +72,10 @@ class RoutePlanner extends Component {
       this.setState({
         error: true
       })
+
+      this.timeout = setTimeout(() => {
+        this.setState({ error: false })
+      },5000)
     }
   }
 
@@ -87,6 +91,7 @@ class RoutePlanner extends Component {
     return (
       <Container fluid={this.props.isMobile}>
         <Wrapper>
+        <Message color='red' hidden={!this.state.error}>Fill in all fields to continue</Message>
           <div>
             <Title>Plan Your Journey</Title>
             <BookPlanButton />
