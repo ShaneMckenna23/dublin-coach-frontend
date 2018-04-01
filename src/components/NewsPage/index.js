@@ -19,7 +19,7 @@ class NewsPage extends Component {
       <Wrapper>
         <Grid container stackable verticalAlign='middle'>
           <Grid.Row>
-              <ArticleSection count={10} />
+              <ArticleSection count={4} />
           </Grid.Row>
         </Grid>
       </Wrapper>

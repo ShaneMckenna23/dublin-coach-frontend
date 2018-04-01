@@ -22,7 +22,6 @@ export const resolvers = {
           }
         }
       })
-      console.log(cache)
     }
   }
 }

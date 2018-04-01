@@ -17,8 +17,35 @@ const Wrapper = styled.section`
 const ArticleLoader = <Wrapper><Loader active inline='centered' /></Wrapper>;
 
 class ArticleSection extends Component{
+
+    sliceArticles = (articles) =>{
+      const {count} = this.props
+      console.log(count)
+      console.log(articles)
+      let articlesToRender = []
+      for(let i=0; i<count; i++){
+        const {headline, publishDate, photo, photoDesc, extract, text, link} = articles[i]
+        articlesToRender.push(<Article
+          headline={headline}
+          publishDate={publishDate}
+          photo={photo}
+          photoDesc={photoDesc}
+          extract={extract}
+          text={text}
+          link={link}/>)
+      }
+      console.log(articlesToRender)
+      return articlesToRender
+    }
+
     render(){
       const {count} = this.props.count
+
+      let articles = ArticleLoader
+
+      if(this.props.data.getArticles){
+        articles = this.sliceArticles(this.props.data.getArticles)
+      }
 
       if(this.props.data.error && !this.props.data.getArticles){
         return(
@@ -33,16 +60,7 @@ class ArticleSection extends Component{
           <Container>
                   <Title>Latest Updates & Upcoming Events</Title>
                   <section>
-                    {this.props.data.getArticles ? this.props.data.getArticles.map(({headline, publishDate, photo, photoDesc, extract, text, link}) => (
-                          <Article
-                            headline={headline}
-                            publishDate={publishDate}
-                            photo={photo}
-                            photoDesc={photoDesc}
-                            extract={extract}
-                            text={text}
-                            link={link}/>
-                        )): ArticleLoader }
+                    {articles}
                   </section>
           </Container>
       )

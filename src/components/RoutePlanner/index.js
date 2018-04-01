@@ -6,6 +6,7 @@ import { compose,graphql } from 'react-apollo';
 import {getPlannerState,updatePlannerState} from '../../graphql'
 import BookPlanButton from '../BookPlanButton'
 import ContinueButton from './continueButton'
+import BookingForm from './booking'
 
 const DesktopWrapper = styled.section`
   background: #60ac1c;
@@ -57,10 +58,14 @@ class RoutePlanner extends Component {
 
   checkInfo = () => {
     const {getPlannerState} = this.props
-    if(getPlannerState.routePlanner.to && getPlannerState.routePlanner.from ){
-      return true
+    if(getPlannerState.routePlanner.state == "Plan"){
+      if(getPlannerState.routePlanner.to && getPlannerState.routePlanner.from ){
+        return true
+      }else{
+        return false
+      }
     }else{
-      return false
+      return true
     }
   }
 
@@ -83,9 +88,9 @@ class RoutePlanner extends Component {
     const {getPlannerState, isMobile} = this.props
     const Wrapper = isMobile ? MobileWrapper : DesktopWrapper
 
-    let Booking = null
+    let bookingVisible = false
     if (typeof getPlannerState != 'undefined'){
-      Booking = getPlannerState.routePlanner.state == "Book" ? <div>Booking stuff!</div>: null
+      bookingVisible = getPlannerState.routePlanner.state == "Book" ? true : false
     }
 
     return (
@@ -104,15 +109,26 @@ class RoutePlanner extends Component {
               <StopSearch label="To" placeholder="Destination Stop" isMobile={isMobile}/>
             </Inline>
             <Inline>
-              <ContinueButton error={this.state.error} color='orange' stlye={{float: "right"}} size="massive" onClick={this.onClick}> Continue </ContinueButton>
+              <ContinueButton
+                    color='orange'
+                    stlye={{float: "right"}}
+                    size="massive"
+                    onClick={this.onClick}
+                    visible={!bookingVisible}>
+                    Continue
+              </ContinueButton>
             </Inline>
-            {Booking}
+            <BookingForm visible={bookingVisible} isMobile={isMobile} onClick={this.onClick}/>
           </section>
         </Wrapper>
       </Container>
     )
   }
 }
+
+
+
+
 
 export default compose(
   graphql(updatePlannerState, { name: 'updatePlannerState' }),
