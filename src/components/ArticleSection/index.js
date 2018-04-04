@@ -20,8 +20,6 @@ class ArticleSection extends Component{
 
     sliceArticles = (articles) =>{
       const {count} = this.props
-      console.log(count)
-      console.log(articles)
       let articlesToRender = []
       for(let i=0; i<count; i++){
         const {headline, publishDate, photo, photoDesc, extract, text, link} = articles[i]
@@ -34,7 +32,6 @@ class ArticleSection extends Component{
           text={text}
           link={link}/>)
       }
-      console.log(articlesToRender)
       return articlesToRender
     }
 
@@ -44,6 +41,7 @@ class ArticleSection extends Component{
       let articles = ArticleLoader
 
       if(this.props.data.getArticles){
+        console.log(this.props.data.getArticles)
         articles = this.sliceArticles(this.props.data.getArticles)
       }
 
@@ -69,6 +67,7 @@ class ArticleSection extends Component{
 }
 
 export default graphql(gql`
+query ArticleQuery($count: Int!) {
   getArticles(count: 4) {
     headline
     extract
@@ -78,6 +77,7 @@ export default graphql(gql`
     photo
     photoDesc
   }
+}
 `, {
   options: { fetchPolicy: 'cache-and-network' },
 })(ArticleSection)

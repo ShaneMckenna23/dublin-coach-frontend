@@ -13,7 +13,6 @@ const app = new Express();
 app.use(require('express-naked-redirect')())
 
 app.use(function(req, res, next) {
-  console.log(req)
   if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
     if(req.get('Host') === 'localhost:4000' || typeof req.get('X-Forwarded-Proto')  === "undefined"){
       next();
