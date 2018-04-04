@@ -72,7 +72,7 @@ class RoutePlanner extends Component {
   onClick = (history) => {
     let validInfo = this.checkInfo()
     if(validInfo){
-      history.push('/new-location')
+      history.push('/routeInformation')
     }else{
       this.setState({
         error: true

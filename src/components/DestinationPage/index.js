@@ -59,6 +59,11 @@ const Explore = styled.div`
 
 
 class DestinationPage extends Component {
+
+  componentDidMount () {
+    window.scrollTo(0, 0)
+  }
+
   render () {
     return (
       <Grid container stackable verticalAlign='top'>

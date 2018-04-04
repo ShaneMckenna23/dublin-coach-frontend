@@ -5,7 +5,7 @@ import {Switch, Route} from "react-router"
 import Loadable from "react-loadable"
 import ChunkLoader from '../ChunkLoader'
 import NoMatch from '../NoMatch'
-
+import RouteInformation from '../RouteInformation'
 
 const Homepage = Loadable({
   loader: () => import(/* webpackChunkName: "Homepage" */ "../Homepage"),
@@ -77,6 +77,7 @@ class Layout extends Component {
                       <Route path="/news" component={NewsPage}/>
                       <Route path="/contact" component={ContactPage}/>
                       <Route path="/destinations" component={DestinationPage}/>
+                      <Route path="/routeInformation" component={RouteInformation} />
                       <Route component={NoMatch}/>
                     </Switch>
 

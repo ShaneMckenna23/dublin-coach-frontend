@@ -41,7 +41,6 @@ class ArticleSection extends Component{
       let articles = ArticleLoader
 
       if(this.props.data.getArticles){
-        console.log(this.props.data.getArticles)
         articles = this.sliceArticles(this.props.data.getArticles)
       }
 
