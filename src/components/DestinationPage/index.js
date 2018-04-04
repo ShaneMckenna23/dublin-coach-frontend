@@ -22,6 +22,7 @@ const DestinationBox = styled.div`
   height: 12vh;
   color: white;
   margin-bottom: .5em;
+  padding: 3em;
   border-radius: 15px;
 
   :not(:last-child) {
@@ -30,6 +31,11 @@ const DestinationBox = styled.div`
 
   @media only screen and (max-width: 1200px) {
     width: 30%;
+  }
+
+  p {
+    text-align: center;
+    font-size: 120%;
   }
 `;
 
@@ -58,6 +64,7 @@ const Explore = styled.div`
 `;
 
 
+
 class DestinationPage extends Component {
 
   componentDidMount () {
@@ -73,12 +80,12 @@ class DestinationPage extends Component {
             <Heading>Dublin Coach... at your Service</Heading>
             <p>Whatever you plan to do, we will get you there in comfort & style</p>
             <DestinationContainer>
-              <DestinationBox>aaaaaaaaaaaaaaa</DestinationBox>
-              <DestinationBox>HELLO</DestinationBox>
-              <DestinationBox>HELLO</DestinationBox>
-              <DestinationBox>HELLO</DestinationBox>
-              <DestinationBox>HELLO</DestinationBox>
-              <DestinationBox>HELLO</DestinationBox>
+              <DestinationBox><p>Sports & Gigs</p></DestinationBox>
+              <DestinationBox><p>Go Racing</p></DestinationBox>
+              <DestinationBox><p>Go Shopping</p></DestinationBox>
+              <DestinationBox><p>Student Travel</p></DestinationBox>
+              <DestinationBox><p>Travel</p></DestinationBox>
+              <DestinationBox><p>Cities & Towns</p></DestinationBox>
             </DestinationContainer>
             <Explore>
               <div>
@@ -98,7 +105,6 @@ class DestinationPage extends Component {
             </Explore>
           </Grid.Column>
           <Grid.Column width={6}>
-            Side Bar
           </Grid.Column>
         </Grid.Row>
       </Grid>
