@@ -70,7 +70,7 @@ class ArticleSection extends Component{
 
 export default graphql(gql`
 query ArticleQuery($count: Int!) {
-  getArticles(count: $count) {
+  getArticles(count: 4) {
     headline
     extract
     text
