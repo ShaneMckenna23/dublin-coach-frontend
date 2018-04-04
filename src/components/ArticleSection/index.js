@@ -69,7 +69,6 @@ class ArticleSection extends Component{
 }
 
 export default graphql(gql`
-query ArticleQuery($count: Int!) {
   getArticles(count: 4) {
     headline
     extract
@@ -79,7 +78,6 @@ query ArticleQuery($count: Int!) {
     photo
     photoDesc
   }
-}
 `, {
   options: { fetchPolicy: 'cache-and-network' },
 })(ArticleSection)
